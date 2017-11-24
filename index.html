@@ -1,0 +1,44 @@
+<!-- Digital Pantry Frontend -->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- jQuery -->
+	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
+	
+	<!-- Document Info -->
+    <title>Digital Pantry</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+	<script src="client.js"></script>
+</head>
+<body>
+<div data-role="page">
+	<!-- Navigation Panel -->
+	<div data-role="panel" data-display="push" data-theme="b" id="nav-panel">
+		<div id="panel-inner">
+			<h3>Digital Pantry</h3>
+			<ul data-role='listview' data-inset='true'>
+				<li data-icon='false'><a>View Ingredients</a></li>
+				<li data-icon='false'><a>Add Ingredients</a></li>
+				<li data-icon='false'><a>View Recipes</a></li>
+				<li data-icon='false'><a>Add a Recipe</a></li>
+				<li data-icon='false'><a>Create a Recipe</a></li>
+			</ul>
+		</div>
+	</div><!-- /panel -->
+
+	<!-- Page Header -->
+    <div data-role="header" data-position="fixed" data-theme="b">
+		<a href="#nav-panel" id="nav-drawer">Drawer</a>
+        <h1>Digital Pantry</h1>
+    </div><!-- /header -->
+	
+	<!-- Page Body -->
+    <div data-role="main" class="ui-content" id="page-body">
+		<!-- To be populated by requestPage -->
+    </div><!-- /main -->
+</div><!-- /page -->
+</body>
+</html>
