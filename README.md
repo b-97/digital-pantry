@@ -1,2 +1,2 @@
 # digital-pantry
-recipe and 
+recipe and inventory manager for kitchens using mysql, nodejs, and jquery 
