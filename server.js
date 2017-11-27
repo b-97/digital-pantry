@@ -17,3 +17,8 @@ app.use(bodyParser.json());
 app.listen(8080, function() {
 	console.log("...Server Started...");
 });
+
+// Listening for requests
+app.post('/homepage', function(req, res) {
+	res.send(page_manager.renderHomePage());
+});
