@@ -6,7 +6,7 @@ $(document).ready(function() {
 
 function requestPage(URL) {
 	$.ajax({
-		type: "POST",
+		type: "GET",
 		url: URL,
 		dataType: "text",
 		data: null,
