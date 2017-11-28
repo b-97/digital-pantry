@@ -22,3 +22,20 @@ app.listen(8080, function() {
 app.post('/homepage', function(req, res) {
 	res.send(page_manager.renderHomePage());
 });
+// Listening for requests
+app.post('/view_ingredients_page', function(req, res) {
+	res.send(page_manager.renderViewIngredientsPage());
+});
+
+// Listening for requests
+app.post('/add_ingredients_page', function(req, res) {
+	res.send(page_manager.renderAddIngredientsPage());
+});
+// Listening for requests
+app.post('/view_recipes_page', function(req, res) {
+	res.send(page_manager.renderViewRecipesPage());
+});
+// Listening for requests
+app.post('/add_recipes_page', function(req, res) {
+	res.send(page_manager.renderCreateRecipePage());
+});
