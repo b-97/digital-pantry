@@ -11,4 +11,26 @@ function renderHomePage() {
 	return html;
 }
 
-exports.renderHomePage = renderHomePage
+function renderViewIngredientsPage() {
+	var html = "Page Under Construction!";
+	return html;
+}
+
+function renderAddIngredientsPage() {
+	var html = "Page Under Construction!";
+	return html;
+}
+function renderViewRecipesPage() {
+	var html = "Page Under Construction!";
+	return html;
+}
+
+function renderCreateRecipePage() {
+	var html = "Page Under Construction!";
+	return html;
+}
+exports.renderHomePage = renderHomePage;
+exports.renderViewIngredientsPage = renderViewIngredientsPage;
+exports.renderAddIngredientsPage = renderAddIngredientsPage;
+exports.renderViewRecipesPage = renderViewRecipesPage;
+exports.renderCreateRecipePage = renderCreateRecipePage;
