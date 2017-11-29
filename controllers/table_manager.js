@@ -2,7 +2,7 @@
 //
 
 var fs = require('fs'); //this may be necessary for db password?
-var EventEmitter = require('Events').EventEmitter;
+var EventEmitter = require('events').EventEmitter;
 var mysql = require('mysql');
 //var pass = fs.readFileSync('./../db_password); do we want this?
 
@@ -30,7 +30,7 @@ class db extends EventEmitter{
 	
 	//INITIAL AUTHENTICATION REQUEST
 	authenticate(username, password){
-		boolean found = true;
+		var found = true;
 		var self = this;
 		/*
 			implementation needed -
@@ -68,7 +68,7 @@ class db extends EventEmitter{
 				rather than HTML.
 	***************************************************************************/
 	get_pantry_ingredient_count(username, ingredient_name){
-		int count = "";
+		var count = "";
 		var self = this;
 		/*	implementation needed -
 				request from mysql pantry table that returns
