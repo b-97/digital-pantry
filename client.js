@@ -1,7 +1,7 @@
 // Digital Pantry Client Side JavaScript
  
 $(document).ready(function() {
-	requestPage('./homepage');
+	requestPage("./homepage");
 });
 
 function requestPage(URL) {

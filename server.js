@@ -16,7 +16,7 @@ app.use(session({
 var page_manager = require('./controllers/page_manager');
 var table_manager = require('./controllers/table_manager');
 var database = require('./controllers/database');
-var db = new database();
+var db = new database.Database();
 
 app.use(express.static("."));
 app.use(bodyParser.urlencoded({extended:false}));

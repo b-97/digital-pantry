@@ -2,8 +2,12 @@
 
 var EventEmitter = require('events').EventEmitter;
 var mysql = require('mysql');
-var dbinfo = require('../Passwords/databaseinfo.json');
-var con = mysql.createConnection(dbinfo);
+var con = mysql.createConnection({
+	host: '35.196.244.167',
+	user: 'root',
+	password: '$4Donuts',
+	database: 'PantryBase'
+});
 
 con.connect(function(err) {
 	if (err) {
