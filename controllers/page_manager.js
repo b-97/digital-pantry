@@ -6,13 +6,13 @@ function renderHomePage() {
 	var html = "";
 	html += "<p>Welcome to Digital Pantry! Please sign in.</p>";
 	html += "<input type='text' id='username' placeholder='Enter Username'>";
-	html += "<input type='password' id='userpass' placeholder='Enter Password'>";
+	html += "<input type='password' id='password' placeholder='Enter Password'>";
 	html += "<button onclick='login()'>Login</button>";
 	return html;
 }
 
 function renderViewIngredientsPage() {
-	var html = "Page Under Construction!";
+	var html = "You've logged in! Page Under Construction!";
 	return html;
 }
 
