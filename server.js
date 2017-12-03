@@ -15,8 +15,8 @@ app.use(session({
 // Custom Modules
 var page_manager = require('./controllers/page_manager');
 var table_manager = require('./controllers/table_manager');
-var database = require('./controllers/database');
-var db = new database.Database();
+//var database = require('./controllers/database');
+//var db = new database.Database();
 
 app.use(express.static("."));
 app.use(bodyParser.urlencoded({extended:false}));
@@ -44,24 +44,6 @@ app.get('/logout', function (req, res) {
 	return res.redirect('/');
 });
 
-app.get('/getUsers', function(req, res) {
-	db.once('usertable', function(rows) {
-		var html = "";
-		html += "<table>";
-		html += "<tr>";
-		html += "<th>User</th>";
-		html += "</tr>";
-		for (var i = 0; i < rows.length; i++) {
-			html += "<tr>";
-			html += "<td>" + rows[i].username + "</td>";
-			html += "</tr>";
-		}
-		html += "</table>";
-		res.send(html);
-	});
-	db.getUserTable();
-});
-
 /*
 	/homepage, /view_ingredients_page, /add_ingredients_page,
 	/view_recipes_page, /add_recipes_page are all GET requests
@@ -83,8 +65,11 @@ app.get('/add_recipes_page', function(req, res) {
 	res.send(page_manager.renderCreateRecipePage());
 });
 
-//	get_ingredients_table - pulls the username and password
-// from the request, and calls 
-app.get('/get_ingredients_table', function(req, res){
+
+app.post('/ingredients_table', function(req, res) {
+	
+});
+
+app.post('/recipes_table', function(req, res) {
 	
 });

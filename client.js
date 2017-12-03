@@ -1,7 +1,7 @@
 // Digital Pantry Client Side JavaScript
  
 $(document).ready(function() {
-	requestPage("./homepage");
+	requestPage('./homepage');
 });
 
 function requestPage(URL) {
@@ -10,12 +10,27 @@ function requestPage(URL) {
 		url: URL,
 		dataType: "text",
 		data: null,
-		
 		success: function(msg) {
 			document.getElementById("page-body").innerHTML = msg; // Populates page body with returned html data
 			$("#page-body").trigger("create"); // Forces a refresh of page content for jQuery Mobile styling
 		},
-		
+		error: function(jgXHR, textStatus, errorThrown){
+			alert("Error: " + textStatus + " " + errorThrown);
+		}
+	});
+}
+
+function requestTable(table) {
+	$.ajax({
+		type: "POST",
+		url: table,
+		dataType: "text",
+		data: null,
+		success: function(msg) {
+			document.getElementById("display_table").innerHTML = msg;
+			$("#display_table").trigger("create");
+			
+		},
 		error: function(jgXHR, textStatus, errorThrown){
 			alert("Error: " + textStatus + " " + errorThrown);
 		}
@@ -24,7 +39,7 @@ function requestPage(URL) {
 
 function login() {
 	var params = {
-		username: $("#username").val()
+		username: $("#username").val(),
 		password: $("#password").val()
 	};
 	
@@ -35,8 +50,7 @@ function login() {
 		data: params,
 		
 		success: function(msg) {
-			console.log(msg);
-			requestPage('./view_ingredients_page');
+			
 		},
 		
 		error: function(jgXHR, textStatus, errorThrown){
