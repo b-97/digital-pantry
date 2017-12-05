@@ -15,7 +15,7 @@ function requestPage(URL) {
 			$("#page-body").trigger("create"); // Forces a refresh of page content for jQuery Mobile styling
 		},
 		error: function(jgXHR, textStatus, errorThrown){
-			alert("Error Requesting Page:" + textStatus + " " + errorThrown);
+			alert("Error Requesting page " + URL + ": "+ textStatus + " " + errorThrown);
 		}
 	});
 }

@@ -5,18 +5,34 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var session = require('client-sessions');
+var mysql = require('mysql');
+/*
 app.use(session({
 	cookieName: 'digital-pantry',
 	secret: 'abc123dorame',
 	duration: 30 * 60 * 1000,
 	activeDuration: 5 * 60 * 1000
 }));
-
+*/
 // Custom Modules
 var page_manager = require('./controllers/page_manager');
 var table_manager = require('./controllers/table_manager');
-//var database = require('./controllers/database');
-//var db = new database.Database();
+
+var con = mysql.createConnection({
+	host:'localhost',
+	user:'root',
+	password:'DrexelU',
+	database:'PantryBase'
+});
+
+con.connect(function(err) {
+	if(err){
+		console.log(err);
+	}
+	else{
+		console.log("Database successfully connected");
+	}
+}); 
 
 app.use(express.static("."));
 app.use(bodyParser.urlencoded({extended:false}));
@@ -32,6 +48,7 @@ app.post('/login', function(req, res) {
 			req.session.userid = req.body.username;
 			return "Logged in successfully!";
 		}
+
 		else {
 			return "Error during login.";
 		}
@@ -46,35 +63,34 @@ app.get('/logout', function (req, res) {
 
 /*
 	/homepage, /view_ingredients_page, /add_ingredients_page,
-	/view_recipes_page, /add_recipes_page are all GET requests
+	/view_recipes_page, /add_recipes_page are all GET requestsIL             -  Philadelphia Energy Solutions
+
 	that simply load the HTML data for a particular page.
 */
-app.post('/homepage', function(req, res) {
+app.get('/homepage', function(req, res) {
 	res.send(page_manager.renderHomePage());
 });
-app.post('/view_ingredients_page', function(req, res) {
+app.get('/view_ingredients_page', function(req, res) {
 	res.send(page_manager.renderViewIngredientsPage());
 });
-app.post('/add_ingredients_page', function(req, res) {
+app.get('/add_ingredients_page', function(req, res) {
 	res.send(page_manager.renderAddIngredientsPage());
 });
-app.post('/view_recipes_page', function(req, res) {
+app.get('/view_recipes_page', function(req, res) {
 	res.send(page_manager.renderViewRecipesPage());
 });
-app.post('/add_recipes_page', function(req, res) {
+app.get('/add_recipes_page', function(req, res) {
 	res.send(page_manager.renderCreateRecipePage());
 });
-app.post('/panel_logged_in', function(req, res) {
+app.get('/panel_logged_in', function(req, res) {
 	res.send(page_manager.renderPanelLoggedIn());
 });
-app.post('/panel_logged_out', function(req, res) {
+app.get('/panel_logged_out', function(req, res) {
 	res.send(page_manager.renderPanelLoggedOut());
 });
-
-app.post('/ingredients_table', function(req, res) {
+app.get('/ingredients_table', function(req, res) {
 	
 });
-
-app.post('/recipes_table', function(req, res) {
+app.get('/recipes_table', function(req, res) {
 	
 });
