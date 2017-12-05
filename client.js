@@ -15,7 +15,7 @@ function requestPage(URL) {
 			$("#page-body").trigger("create"); // Forces a refresh of page content for jQuery Mobile styling
 		},
 		error: function(jgXHR, textStatus, errorThrown){
-			alert("Error: " + textStatus + " " + errorThrown);
+			alert("Error Requesting Page:" + textStatus + " " + errorThrown);
 		}
 	});
 }
@@ -32,7 +32,7 @@ function requestTable(table) {
 			
 		},
 		error: function(jgXHR, textStatus, errorThrown){
-			alert("Error: " + textStatus + " " + errorThrown);
+			alert("Error requesting data: " + textStatus + " " + errorThrown);
 		}
 	});
 }
@@ -54,7 +54,7 @@ function login() {
 		},
 		
 		error: function(jgXHR, textStatus, errorThrown){
-			alert("Error: " + textStatus + " " + errorThrown);
+			alert("Error logging in: " + textStatus + " " + errorThrown);
 		}
 	});
 }
