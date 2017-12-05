@@ -42,29 +42,34 @@ app.post('/login', function(req, res) {
 app.get('/logout', function (req, res) {
 	req.session.reset();
 	return res.redirect('/');
-});
+});5
 
 /*
 	/homepage, /view_ingredients_page, /add_ingredients_page,
 	/view_recipes_page, /add_recipes_page are all GET requests
 	that simply load the HTML data for a particular page.
 */
-app.get('/homepage', function(req, res) {
+app.post('/homepage', function(req, res) {
 	res.send(page_manager.renderHomePage());
 });
-app.get('/view_ingredients_page', function(req, res) {
+app.post('/view_ingredients_page', function(req, res) {
 	res.send(page_manager.renderViewIngredientsPage());
 });
-app.get('/add_ingredients_page', function(req, res) {
+app.post('/add_ingredients_page', function(req, res) {
 	res.send(page_manager.renderAddIngredientsPage());
 });
-app.get('/view_recipes_page', function(req, res) {
+app.post('/view_recipes_page', function(req, res) {
 	res.send(page_manager.renderViewRecipesPage());
 });
-app.get('/add_recipes_page', function(req, res) {
+app.post('/add_recipes_page', function(req, res) {
 	res.send(page_manager.renderCreateRecipePage());
 });
-
+app.post('/panel_logged_in', function(req, res) {
+	res.send(page_manager.renderPanelLoggedIn());
+});
+app.post('/panel_logged_out', function(req, res) {
+	res.send(page_manager.renderPanelLoggedOut());
+});
 
 app.post('/ingredients_table', function(req, res) {
 	

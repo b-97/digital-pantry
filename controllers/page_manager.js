@@ -50,8 +50,29 @@ function renderCreateRecipePage() {
 	html += "";
 	return html;
 }
+
+function renderPanelLoggedIn() {
+	var html = "";
+	html += "<h3>Welcome!</h3>";
+	html += "<ul data-role='listview' data-inset='true'>";
+	html += "<li data-icon='false'><a>View Ingredients</a></li>";
+	html += "<li data-icon='false'><a>Add Ingredients</a></li>";
+	html += "<li data-icon='false'><a>View Recipes</a></li>";
+	html += "<li data-icon='false'><a>Add a Recipe</a></li>";
+	html += "</ul>";
+	return html;
+}
+
+function renderPanelLoggedOut() {
+	var html = "";
+	html += "<h3>Please Sign In</h3>";
+	return html;
+}
+
 exports.renderHomePage = renderHomePage;
 exports.renderViewIngredientsPage = renderViewIngredientsPage;
 exports.renderAddIngredientsPage = renderAddIngredientsPage;
 exports.renderViewRecipesPage = renderViewRecipesPage;
 exports.renderCreateRecipePage = renderCreateRecipePage;
+exports.renderPanelLoggedIn = renderPanelLoggedIn;
+exports.renderPanelLoggedOut = renderPanelLoggedOut;

@@ -50,7 +50,7 @@ function login() {
 		data: params,
 		
 		success: function(msg) {
-			
+			requestPage('./panel_logged_in');
 		},
 		
 		error: function(jgXHR, textStatus, errorThrown){
