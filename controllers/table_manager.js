@@ -1,28 +1,24 @@
 'use strict'
-//
 
-var fs = require('fs'); //this may be necessary for db password?
 var EventEmitter = require('events').EventEmitter;
 var mysql = require('mysql');
-//var pass = fs.readFileSync('./../db_password); do we want this?
 
-/*
-//todo: implement database (nick???)
 var con = mysql.createConnection({
-	host:'???????',
-	user:'???????',
-	pass:'pass',
-	database:'????'
+	host:'localhost',
+	user:'root',
+	password:'DrexelU',
+	database:'PantryBase'
 });
 
 con.connect(function(err) {
-		if(err)
-			console.log(err);
-		else
-			console.long("Database Successfully Connected!");
+	if(err){
+		console.log(err);
 	}
-);
-*/
+	else{
+		console.log("Database successfully connected");
+	}
+});
+
 
 class db extends EventEmitter{
 	//equip db with identical functions and attributes to Weather
@@ -46,20 +42,20 @@ class db extends EventEmitter{
 			For now, all of these functions return an empty string if the table
 				request failed.
 	***************************************************************************/
-	get_recipe_table(username){
-		var recipe_table = "";
+	get_table(key_name, key, table){
 		var self = this;
-		self.emit('recipe_table', recipe_table);
-	}
-	get_ingredients_table(recipe){
-		var ingredients_table = "";
-		var self = this;
-		self.emit('recipe_table', recipe_table);
-	}
-	get_pantry_table(username){
-		var pantry_table = "";
-		var self = this;
-		self.emit('pantry_table', pantry_table);
+		var sql_string = "SELECT * FROM "+table+" WHERE "+key_name+" = \'"+key+"\';"
+		con.query(sql_string, function(err, rows, fields) {
+			if(!err){
+				console.log(rows);
+				self.emit('db_get_response_success', rows);
+			}
+			else{
+				console.log('Error making the following SQL request: ' + sql_string);
+				self.emit('db_get_response_error', err);
+			}
+		}
+		);
 	}
 	/***************************************************************************
 		Specific requests
@@ -101,4 +97,4 @@ class db extends EventEmitter{
 	}
 }
 
-exports.db = db;
+module.exports = db;
