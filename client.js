@@ -13,9 +13,29 @@ function requestPage(URL) {
 		success: function(msg) {
 			document.getElementById("page-body").innerHTML = msg; // Populates page body with returned html data
 			$("#page-body").trigger("create"); // Forces a refresh of page content for jQuery Mobile styling
+			requestPanel("panel_logged_out");
 		},
 		error: function(jgXHR, textStatus, errorThrown){
 			alert("Error Requesting page " + URL + ": "+ textStatus + " " + errorThrown);
+		}
+	});
+}
+
+/*	Functions exactly the same as requestPage, except it populates the div of the
+		side panel rather than the body.
+*/
+function requestPanel(URL){
+	$.ajax({
+		type: "GET",
+		url: URL,
+		dataType: "text",
+		data: null,
+		success:function(msg) {
+			document.getElementById("panel-inner").innerHTML = msg;
+			$("#page-body").trigger("create");
+		},
+		error: function(jgXHR, textStatus, errorThrown){
+			alert("Error requesting panel " + URL + ": " + textStatus + " " + errorThrown);
 		}
 	});
 }
