@@ -6,14 +6,7 @@ var app = express();
 var bodyParser = require('body-parser');
 var session = require('client-sessions');
 var mysql = require('mysql');
-/*
-app.use(session({
-	cookieName: 'digital-pantry',
-	secret: 'abc123dorame',
-	duration: 30 * 60 * 1000,
-	activeDuration: 5 * 60 * 1000
-}));
-*/
+
 // Custom Modules
 var page_manager = require('./controllers/page_manager');
 var table_manager = require('./controllers/table_manager');
