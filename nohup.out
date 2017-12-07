@@ -32,3 +32,5 @@ Error: Connection lost: The server closed the connection.
     at endReadableNT (_stream_readable.js:905:12)
     at nextTickCallbackWith2Args (node.js:441:9)
     at process._tickCallback (node.js:355:17)
+...Server Started...
+Database successfully connected
