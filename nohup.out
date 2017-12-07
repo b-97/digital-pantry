@@ -18,3 +18,17 @@ Error: listen EADDRINUSE :::8080
     at Module._compile (module.js:410:26)
     at Object.Module._extensions..js (module.js:417:10)
     at Module.load (module.js:344:32)
+...Server Started...
+Database successfully connected
+events.js:141
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: Connection lost: The server closed the connection.
+    at Protocol.end (/home/nick/digital-pantry/node_modules/mysql/lib/protocol/Protocol.js:113:13)
+    at Socket.<anonymous> (/home/nick/digital-pantry/node_modules/mysql/lib/Connection.js:109:28)
+    at emitNone (events.js:72:20)
+    at Socket.emit (events.js:166:7)
+    at endReadableNT (_stream_readable.js:905:12)
+    at nextTickCallbackWith2Args (node.js:441:9)
+    at process._tickCallback (node.js:355:17)
