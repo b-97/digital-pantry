@@ -56,8 +56,18 @@ class db extends EventEmitter{
 		var sql_string = "SELECT * FROM "+table+" WHERE "+key_name+" = \'"+key+"\';"
 		con.query(sql_string, function(err, rows, fields) {
 			if(!err){
-				console.log(rows);
-				self.emit('db_get_response_success', rows);
+				if(table == "Pantry"){
+					var html_string="<table width=\'50%\'><tr><td>Ingredient name</td>"
+									+ "<td>Measurement unit</td><td>Quantity</td><tr>";
+					for(var i = 0; i < rows.length; i++){
+						var row = rows[i]
+						html_string +="<tr><td>"+row.ingredient_name+"</td><td>"+row.measurement_unit+
+									"</td><td>"+row.quantity.toString()+"</td></tr>";
+					}
+					html_string += "</table>";
+					console.log(rows);
+				}
+				self.emit('db_get_response_success', html_string);
 			}
 			else{
 				console.log('Error making the following SQL request: ' + sql_string);
