@@ -55,10 +55,10 @@ function renderPanelLoggedIn() {
 	var html = "";
 	html += "<h3>Welcome!</h3>";
 	html += "<ul data-role='listview' data-inset='true'>";
-	html += "<li data-icon='false'><a>View Ingredients</a></li>";
-	html += "<li data-icon='false'><a>Add Ingredients</a></li>";
-	html += "<li data-icon='false'><a>View Recipes</a></li>";
-	html += "<li data-icon='false'><a>Add a Recipe</a></li>";
+	html += "<li data-icon='false'><a onClick=\"requestPage(\'/view_ingredients_page\')\">View Ingredients</a></li>";
+	html += "<li data-icon='false'><a onClick=\"requestPage(\'/add_ingredients_page\')\">Add Ingredients</a></li>";
+	html += "<li data-icon='false'><a onClick=\"requestPage(\'/view_recipes_page\')\">View Recipes</a></li>";
+	html += "<li data-icon='false'><a onClick=\"requestPage(\'/add_recipes_page\')\">Add a Recipe</a></li>";
 	html += "</ul>";
 	return html;
 }
