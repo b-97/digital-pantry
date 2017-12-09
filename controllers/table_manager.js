@@ -53,28 +53,56 @@ class db extends EventEmitter{
 	***************************************************************************/
 	get_table(key_name, key, table){
 		var self = this;
-		var sql_string = "SELECT * FROM "+table+" WHERE "+key_name+" = \'"+key+"\';"
+		var sql_string = "SELECT * FROM " + table + " WHERE " + key_name + " = '" + key + "'";
 		con.query(sql_string, function(err, rows, fields) {
-			if(!err){
-				if(table == "Pantry"){
-					var html_string="<table width=\'50%\'><tr><td>Ingredient name</td>"
-									+ "<td>Measurement unit</td><td>Quantity</td><tr>";
-					for(var i = 0; i < rows.length; i++){
-						var row = rows[i]
-						html_string +="<tr><td>"+row.ingredient_name+"</td><td>"+row.measurement_unit+
-									"</td><td>"+row.quantity.toString()+"</td></tr>";
+			if (!err){
+				if (table == "Pantry") {
+					var html = "";
+					html += "<table data-role='table' id='display_table' data-mode='reflow' class='ui-responsive'>";
+					html += "<thead>";
+					html += "<tr>";
+					html += "<th>Ingredient Name</th>";
+					html += "<th>Measurement Unit</th>";
+					html += "<th>Quantity</th>";
+					html += "</tr>";
+					html += "</thead>";
+					html += "<tbody>";
+					for (var i = 0; i < rows.length; i++) {
+						html += "<tr>";
+						html += "<td>" + rows[i].ingredient_name + "</td>";
+						html += "<td>" + rows[i].measurement_unit + "</td>";
+						html += "<td>" + rows[i].quantity.toString() + "</td>";
+						html += "</tr>";
 					}
-					html_string += "</table>";
-					console.log(rows);
+					html += "</tbody>";
+					html += "</table>";
 				}
-				self.emit('db_get_response_success', html_string);
+				else if (table == "Recipes") {
+					var html = "";
+					html += "<div class='ui-grid-a'>";
+					for (var i = 0; i < rows.length; i++) {
+						if (i % 2 == 0) {
+							html += "<div class='ui-block-a'>";
+						}
+						else {
+							html += "<div class='ui-block-b'>";
+						}
+						html += "<div class='ui-body ui-body-a ui-corner-all'>";
+						html += "<h3>" + rows[i].recipe_name + "</h3>";
+						html += "<h4>" + rows[i].user_name + "</h4>";
+						html += "<p>" + rows[i].recipe_instructions + "</p>";
+						html += "</div>";
+						html += "</div>";
+					}
+					html += "</div>";
+				}
+				self.emit('db_get_response_success', html);
 			}
-			else{
+			else {
 				console.log('Error making the following SQL request: ' + sql_string);
 				self.emit('db_get_response_error', err);
 			}
-		}
-		);
+		});
 	}
 	/***************************************************************************
 		Specific requests

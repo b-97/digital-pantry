@@ -20,10 +20,10 @@ function renderHomePage() {
 function renderViewIngredientsPage() {
 	var html = "";
 	html += "<h1>List of Ingredients in Pantry</h1>";
-	html += "<button onclick=\"requestTable(\'/full_pantry_table\')\">Display Ingredients</button>";
-	html += "<table data-role='table' id='display_table' data-mode='reflow' class='ui-responsive'>";
+	html += "<button onclick='requestTable('/pantry_table')'>Display Ingredients</button>";
+	html += "<div id='display'>";
 	html += "<!-- To be populated by requestTable -->";
-	html += "</table>";
+	html += "</div>";
 	console.log(html);
 	return html;
 }
@@ -40,10 +40,10 @@ function renderAddIngredientsPage() {
 function renderViewRecipesPage() {
 	var html = "";
 	html += "<h1>List of Recipes in Pantry</h1>";
-	html += "<button onclick='requestTable('./recipes_table')'>Display Recipes</button>";
-	html += "<table data-role='table' id='display_table' data-mode='reflow' class='ui-responsive'>";
+	html += "<button onclick='requestTable('./recipes_list')'>Display Recipes</button>";
+	html += "<div id='display'>";
 	html += "<!-- To be populated by requestTable -->";
-	html += "</table>";
+	html += "</div>";
 	return html;
 }
 

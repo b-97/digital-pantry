@@ -55,8 +55,8 @@ function requestTable(table) {
 		dataType: "text",
 		data: params,
 		success: function(msg) {
-			document.getElementById("display_table").innerHTML = msg;
-			$("#display_table").trigger("create");
+			document.getElementById("display").innerHTML = msg;
+			$("#display").trigger("create");
 		},
 		error: function(jgXHR, textStatus, errorThrown){
 			alert("Error requesting data: " + textStatus + " " + errorThrown);
