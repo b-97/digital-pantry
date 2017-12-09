@@ -41,6 +41,9 @@ app.get('/logout', function (req, res) {
 	/view_recipes_page, /add_recipes_page are all GET requests
 	that simply load the HTML data for a particular page.
 */
+app.get('/welcome_page', function(req, res) {
+	res.send(page_manager.renderWelcomePage());
+});
 app.get('/homepage', function(req, res) {
 	res.send(page_manager.renderHomePage());
 });
