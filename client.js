@@ -1,5 +1,7 @@
 // Digital Pantry Client Side JavaScript
  
+var data_user_name = "";
+
 $(document).ready(function() {
 	requestPage('./welcome_page');
 	requestPanel("panel_logged_out");
@@ -44,11 +46,14 @@ function requestPanel(URL){
 
 function requestTable(table) {
 	console.log("Requested table: " + table);
+	var params = {
+		user_name: data_user_name
+	};
 	$.ajax({
-		type: "POST",
+		type: "GET",
 		url: table,
 		dataType: "text",
-		data: null,
+		data: params,
 		success: function(msg) {
 			document.getElementById("display_table").innerHTML = msg;
 			$("#display_table").trigger("create");
@@ -74,6 +79,7 @@ function login() {
 		success: function(msg) {
 			requestPanel('./panel_logged_in');
 			requestPage('./homepage');
+			data_user_name = params.username;;
 			console.log(msg);
 		},
 		error: function(jgXHR, textStatus, errorThrown){

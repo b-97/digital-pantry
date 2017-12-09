@@ -65,7 +65,7 @@ app.get('/panel_logged_in', function(req, res) {
 app.get('/panel_logged_out', function(req, res) {
 	res.send(page_manager.renderPanelLoggedOut());
 });
-app.get('/pantry_table', function(req, res) {
+app.get('/full_pantry_table', function(req, res) {
 	db.once('db_get_response_success', function(msg) {
 		res.send(msg);
 		console.log("successful request!");
@@ -75,4 +75,15 @@ app.get('/pantry_table', function(req, res) {
 		console.log("we borked :(");
 	});
 	db.get_table('user_name', req.query.user_name, 'Pantry');
+});
+app.get('/full_ingredients_table', function(req, res) {
+	db.once('db_get_response_success', function(msg) {
+		res.send(msg);
+		console.log("successful request!");
+	});
+	db.once('db_get_response_error', function(msg) {
+		res.send(msg);
+		console.log("we borked :(");
+	});
+	db.get_table('user_name', req.query.user_name, 'Ingredients');
 });
