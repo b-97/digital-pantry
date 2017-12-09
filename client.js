@@ -2,6 +2,7 @@
  
 $(document).ready(function() {
 	requestPage('./homepage');
+	requestPanel("panel_logged_out");
 });
 
 function requestPage(URL) {
@@ -13,7 +14,6 @@ function requestPage(URL) {
 		success: function(msg) {
 			document.getElementById("page-body").innerHTML = msg; // Populates page body with returned html data
 			$("#page-body").trigger("create"); // Forces a refresh of page content for jQuery Mobile styling
-			requestPanel("panel_logged_out");
 		},
 		error: function(jgXHR, textStatus, errorThrown){
 			alert("Error Requesting page " + URL + ": "+ textStatus + " " + errorThrown);
@@ -25,6 +25,7 @@ function requestPage(URL) {
 		side panel rather than the body.
 */
 function requestPanel(URL){
+	console.log(URL);
 	$.ajax({
 		type: "GET",
 		url: URL,
@@ -49,7 +50,6 @@ function requestTable(table) {
 		success: function(msg) {
 			document.getElementById("display_table").innerHTML = msg;
 			$("#display_table").trigger("create");
-			
 		},
 		error: function(jgXHR, textStatus, errorThrown){
 			alert("Error requesting data: " + textStatus + " " + errorThrown);
@@ -70,9 +70,10 @@ function login() {
 		data: params,
 		
 		success: function(msg) {
+			requestPanel('./panel_logged_in');
 			requestPage('./panel_logged_in');
+			console.log(msg);
 		},
-		
 		error: function(jgXHR, textStatus, errorThrown){
 			alert("Error logging in: " + textStatus + " " + errorThrown);
 		}

@@ -21,13 +21,11 @@ app.listen(8080, function() {
 
 app.post('/login', function(req, res) {
 	db.once('auth', function(msg) {
-		if (msg == 1) {
-			req.session.userid = req.body.username;
-			return "Logged in successfully!";
+		if (msg) {
+			res.send("Logged in as " + req.body.username);
 		}
-
 		else {
-			return "Error during login.";
+			res.send(msg);
 		}
 	});
 	db.authenticate(req.body.username, req.body.password);
