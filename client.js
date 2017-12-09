@@ -6,6 +6,7 @@ $(document).ready(function() {
 });
 
 function requestPage(URL) {
+	console.log("Page requested: " + URL);
 	$.ajax({
 		type: "GET",
 		url: URL,
@@ -42,6 +43,7 @@ function requestPanel(URL){
 }
 
 function requestTable(table) {
+	console.log("Requested table: " + table);
 	$.ajax({
 		type: "POST",
 		url: table,
