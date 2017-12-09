@@ -26,13 +26,28 @@ class db extends EventEmitter{
 	
 	//INITIAL AUTHENTICATION REQUEST
 	authenticate(username, password){
-		var found = true;
+		var found = false;
 		var self = this;
 		/*
 			implementation needed -
 				request from mysql USER table the combination of username and 
 				password. if it exists, set found to true. 
 		*/
+		car q = "SELECT first_name from Users where user_name = " + username + " && password = " + password;
+		con.query(q, function(err, rows, field){
+			if (err)
+			{
+				self.emit('auth', false);
+			}
+			else
+			{
+				if (rows.length == 0)
+				{
+					self.emit('auth', false);
+				}
+				self.emit('auth', true);
+			}
+		});
 		self.emit('auth', found); //emit the result
 	}
 	/***************************************************************************

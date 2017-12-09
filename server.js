@@ -20,7 +20,7 @@ app.listen(8080, function() {
 });
 
 app.post('/login', function(req, res) {
-	db.once('loggedin', function(msg) {
+	db.once('auth', function(msg) {
 		if (msg == 1) {
 			req.session.userid = req.body.username;
 			return "Logged in successfully!";
@@ -30,7 +30,7 @@ app.post('/login', function(req, res) {
 			return "Error during login.";
 		}
 	});
-	db.login(req.body.username, req.body.password);
+	db.authenticate(req.body.username, req.body.password);
 });
 
 app.get('/logout', function (req, res) {
