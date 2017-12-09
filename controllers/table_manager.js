@@ -33,7 +33,7 @@ class db extends EventEmitter{
 				request from mysql USER table the combination of username and 
 				password. if it exists, set found to true. 
 		*/
-		car q = "SELECT first_name from Users where user_name = " + username + " && password = " + password;
+		var q = "SELECT first_name from Users where user_name = " + username + " && password = " + password;
 		con.query(q, function(err, rows, field){
 			if (err)
 			{
