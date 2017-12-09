@@ -2,13 +2,18 @@
 
 // Creates pages to be sent back to client
 
-function renderHomePage() {
+function renderWelcomePage() {
 	var html = "";
-	html += "Digital Pantry Welcome Page";
 	html += "<p>Welcome to Digital Pantry! Please sign in.</p>";
 	html += "<input type='text' id='username' placeholder='Enter Username'>";
 	html += "<input type='password' id='password' placeholder='Enter Password'>";
 	html += "<button onclick='login()'>Login</button>";
+	return html;
+}
+
+function renderHomePage() {
+	var html = "";
+	html += "<p>Thank you for signing in! Digital Pantry is the best way to manage your recipes and ingredients. Get started by using the drawer in the upper-left corner to navigate.</p>";
 	return html;
 }
 
@@ -69,6 +74,7 @@ function renderPanelLoggedOut() {
 	return html;
 }
 
+exports.renderWelcomePage = renderWelcomePage;
 exports.renderHomePage = renderHomePage;
 exports.renderViewIngredientsPage = renderViewIngredientsPage;
 exports.renderAddIngredientsPage = renderAddIngredientsPage;

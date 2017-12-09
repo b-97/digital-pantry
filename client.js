@@ -1,7 +1,7 @@
 // Digital Pantry Client Side JavaScript
  
 $(document).ready(function() {
-	requestPage('./homepage');
+	requestPage('./welcome_page');
 	requestPanel("panel_logged_out");
 });
 
@@ -34,7 +34,7 @@ function requestPanel(URL){
 		data: null,
 		success:function(msg) {
 			document.getElementById("panel-inner").innerHTML = msg;
-			$("#page-body").trigger("create");
+			$("#panel-inner").trigger("create");
 		},
 		error: function(jgXHR, textStatus, errorThrown){
 			alert("Error requesting panel " + URL + ": " + textStatus + " " + errorThrown);
@@ -73,7 +73,7 @@ function login() {
 		
 		success: function(msg) {
 			requestPanel('./panel_logged_in');
-			requestPage('./panel_logged_in');
+			requestPage('./homepage');
 			console.log(msg);
 		},
 		error: function(jgXHR, textStatus, errorThrown){
