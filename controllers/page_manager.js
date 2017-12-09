@@ -20,7 +20,7 @@ function renderHomePage() {
 function renderViewIngredientsPage() {
 	var html = "";
 	html += "<h1>List of Ingredients in Pantry</h1>";
-	html += "<button onlick=\'requestTable(\'./ingredients_table\')\'>Display Ingredients</button>";
+	html += "<button onclick=\'requestTable(\'./ingredients_table\')\'>Display Ingredients</button>";
 	html += "<table data-role='table' id='display_table' data-mode='reflow' class='ui-responsive'>";
 	html += "<!-- To be populated by requestTable -->";
 	html += "</table>";
