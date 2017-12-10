@@ -64,6 +64,41 @@ function requestTable(table) {
 	});
 }
 
+/*
+	Begin code that Nick added
+*/
+function addIngredient()
+{
+	var name = document.getElementById("ingredient_name").value;
+	var unit = document.getElementById("measurement_unit").value;
+	var quant = document.getElementById("quantity").value;
+	var URL = "129.25.202.223:8080/ingredient_add";
+	var params = {
+		user_name: data_user_name,
+		ingredient_name: name,
+		measurement_unit: unit,
+		quantity: quant
+	};
+	$.ajax({
+		type: "GET",
+		url: URL,
+		dataType: "text",
+		data: params,
+		success: function(msg) {
+			alert("Successfully added ingredient");
+			document.getElementById("ingredient_name").value = "";
+			document.getElementById("measurement_unit").value = "";
+			document.getElementById("quantity").value = "";
+		},
+		error: function(jgXHR, textStatus, errorThrown){
+			alert("Error submitting ingredient: " + errorThrown);
+		}
+	});
+}
+/*
+	End code that Nick added
+*/
+
 function login() {
 	var params = {
 		username: $("#username").val(),

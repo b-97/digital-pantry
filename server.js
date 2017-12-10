@@ -94,3 +94,20 @@ app.get('/recipes_list', function(req, res) {
 	});
 	db.get_table('user_name', req.query.user_name, 'Recipes');
 });
+
+/*
+	Begin code that Nick added
+*/
+app.get('/ingredient_add', function(req, res){
+	db.once('db_pantry_add_fail', function(msg){
+		res.send(msg);
+	});
+	db.once('db_pantry_add_success', function(msg){
+		res.send(true);
+	});
+
+	db.modify_pantry_row(db.row_count("Pantry"), req.body.user_name, req.body.ingredient_name, req.body.measurement_unit, req.body.quantity);
+});
+/*
+	End code that Nick added
+*/

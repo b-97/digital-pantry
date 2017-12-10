@@ -132,7 +132,18 @@ class db extends EventEmitter{
 	}
 	modify_pantry_row(id, user_name, ingredient_name, measurement_unit, quantity){
 		var self = this;
-		self.emit('success_status', "");
+		var sqlQ = "INSERT INTO Pantry ('id','user_name','ingredient_name','measurement_unit','quantity') VALUES (" + id + ", " + user_name + ", " + ingredient_name + ", " + measurement_unit + ", " + quantity + ");";
+		con.query(sqlQ, function(err, rows, fields){
+			if (err)
+			{
+				self.emit('db_pantry_add_fail', err);
+			}
+			else
+			{
+				self.emit('db_pantry_add_success', "Success");
+			}
+		});
+		self.emit('pantryadd', false);
 	}
 	modify_ingredients_row(recipe_id, ingredient_name, measurement_unit, quantity){
 		var self = this;
@@ -141,6 +152,20 @@ class db extends EventEmitter{
 	modify_recipes_row(recipe_instructions, recipe_id, recipe_name, user_name){
 		var self = this;
 		self.emit('success_status', "");
+	}
+	row_count(table_name){
+		var self = this;
+		var sqlQ = "SELECT * FROM " + table_name + ";";
+		con.query(sqlQ, function(err, rows, fields){
+			if (err)
+			{
+				return 0;
+			}
+			else
+			{
+				return rows.length;
+			}
+		});
 	}
 }
 
