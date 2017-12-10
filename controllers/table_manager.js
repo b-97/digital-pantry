@@ -129,6 +129,7 @@ class db extends EventEmitter{
 	modify_users_row(user_name, password, first_name, last_name){
 		var self = this;
 		var sqlQ = "INSERT INTO Users ('user_name','password','first_name','last_name') VALUES (" + user_name + ", " + password + ", " + first_name + ", " + last_name + ");";
+		alert(sqlQ);
 		con.query(sqlQ, function(err, rows, fields){
 			if (err)
 			{
@@ -144,7 +145,7 @@ class db extends EventEmitter{
 	}
 	modify_pantry_row(id, user_name, ingredient_name, measurement_unit, quantity){
 		var self = this;
-		var sqlQ = "INSERT INTO Pantry ('id','user_name','ingredient_name','measurement_unit','quantity') VALUES (" + id + ", " + user_name + ", " + ingredient_name + ", " + measurement_unit + ", " + quantity + ");";
+		var sqlQ = "INSERT INTO Pantry ('id','user_name','ingredient_name','measurement_unit','quantity') VALUES ('" + id + "', '" + user_name + "', '" + ingredient_name + "', '" + measurement_unit + "', '" + quantity + "');";
 		con.query(sqlQ, function(err, rows, fields){
 			if (err)
 			{

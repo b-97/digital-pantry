@@ -100,10 +100,10 @@ app.get('/recipes_list', function(req, res) {
 */
 app.get('/ingredient_add', function(req, res){
 	db.once('db_pantry_add_fail', function(msg){
-		res.send(msg);
+		res.send([false, msg]);
 	});
 	db.once('db_pantry_add_success', function(msg){
-		res.send(true);
+		res.send([true]);
 	});
 
 	db.modify_pantry_row(db.row_count("Pantry"), req.body.user_name, req.body.ingredient_name, req.body.measurement_unit, req.body.quantity);

@@ -85,7 +85,7 @@ function addIngredient()
 		dataType: "text",
 		data: params,
 		success: function(msg) {
-			if (msg)
+			if (msg[0])
 			{
 				alert("Successfully added ingredient");
 				document.getElementById("ingredient_name").value = "";
