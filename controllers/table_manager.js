@@ -129,7 +129,7 @@ class db extends EventEmitter{
 	modify_users_row(user_name, password, first_name, last_name){
 		var self = this;
 		var sqlQ = "INSERT INTO Users ('user_name','password','first_name','last_name') VALUES (" + user_name + ", " + password + ", " + first_name + ", " + last_name + ");";
-		alert(sqlQ);
+		console.log(sqlQ);
 		con.query(sqlQ, function(err, rows, fields){
 			if (err)
 			{
@@ -146,10 +146,11 @@ class db extends EventEmitter{
 	modify_pantry_row(id, user_name, ingredient_name, measurement_unit, quantity){
 		var self = this;
 		var sqlQ = "INSERT INTO Pantry ('id','user_name','ingredient_name','measurement_unit','quantity') VALUES ('" + id + "', '" + user_name + "', '" + ingredient_name + "', '" + measurement_unit + "', '" + quantity + "');";
+		console.log(sqlQ);
 		con.query(sqlQ, function(err, rows, fields){
 			if (err)
 			{
-				self.emit('db_pantry_add_fail', err);
+				self.emit('db_pantry_add_fail', sqlQ);
 			}
 			else
 			{
@@ -196,10 +197,12 @@ var sqlQ = "INSERT INTO Recipe ('recipe_instructions','recipe_id','recipe_name',
 		con.query(sqlQ, function(err, rows, fields){
 			if (err)
 			{
+				console.log("Error with row count: " + sqlQ);
 				return 0;
 			}
 			else
 			{
+				console.log("Successful row count query: " + rows.length + " rows");
 				return rows.length;
 			}
 		});

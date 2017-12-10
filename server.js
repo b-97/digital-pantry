@@ -105,8 +105,9 @@ app.get('/ingredient_add', function(req, res){
 	db.once('db_pantry_add_success', function(msg){
 		res.send([true]);
 	});
-
-	db.modify_pantry_row(db.row_count("Pantry"), req.body.user_name, req.body.ingredient_name, req.body.measurement_unit, req.body.quantity);
+	var id = db.row_count("Pantry");
+	console.log("id = " + id);
+	db.modify_pantry_row(id, req.query.user_name, req.query.ingredient_name, req.query.measurement_unit, req.query.quantity);
 });
 app.get('/recipe_add', function(req, res){
 	db.once('db_adding_recipe_fail', function(msg){
@@ -116,7 +117,7 @@ app.get('/recipe_add', function(req, res){
 		res.send(true);
 	});
 
-	db.add_recipe(req.body.recipe_instructions, req.body.recipe_id, req.body.recipe_name, req.body.user_name, req.body.ingredients);
+	db.add_recipe(req.query.recipe_instructions, req.query.recipe_id, req.query.recipe_name, req.query.user_name, req.query.ingredients);
 });
 /*
 	End code that Nick added
