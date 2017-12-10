@@ -131,7 +131,7 @@ function login() {
 }
 
 function submitIngredientsQuantity() {
-	var ingredients_quantity = $("#ingredients_quantity");
+	var ingredients_quantity = $("#ingredients_quantity").val();
 	var params = {
 		quantity: ingredients_quantity,
 		user_name: data_user_name
