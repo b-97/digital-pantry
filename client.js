@@ -72,7 +72,7 @@ function addIngredient()
 	var name = document.getElementById("ingredient_name").value;
 	var unit = document.getElementById("measurement_unit").value;
 	var quant = document.getElementById("quantity").value;
-	var URL = "129.25.202.223:8080/ingredient_add";
+	var URL = "./ingredient_add";
 	var params = {
 		user_name: data_user_name,
 		ingredient_name: name,
@@ -85,10 +85,17 @@ function addIngredient()
 		dataType: "text",
 		data: params,
 		success: function(msg) {
-			alert("Successfully added ingredient");
-			document.getElementById("ingredient_name").value = "";
-			document.getElementById("measurement_unit").value = "";
-			document.getElementById("quantity").value = "";
+			if (msg)
+			{
+				alert("Successfully added ingredient");
+				document.getElementById("ingredient_name").value = "";
+				document.getElementById("measurement_unit").value = "";
+				document.getElementById("quantity").value = "";
+			}
+			else
+			{
+				alert("Error submiting ingredients: " + msg);
+			}
 		},
 		error: function(jgXHR, textStatus, errorThrown){
 			alert("Error submitting ingredient: " + errorThrown);
