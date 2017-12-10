@@ -51,20 +51,23 @@ function renderCreateRecipePage() {
 	var html = "";
 	html += "<h1>Create a Recipe from Ingredients in Pantry</h1>";
 	html += "<input type='text' id='ingredients_quantity' placeholder='Enter the number of ingredients this recipe will have'>";
-	html += "<button onclick=\"SubmitIngredientsQuantity()\">Submit</button>";
+	html += "<button onclick=\"submitIngredientsQuantity()\">Submit</button>";
 	html += "<div id='display'>";
 	html += "<!-- To be populated by submitIngredientsQuantity -->";
 	html += "</div>";
 	return html;
 }
 
-function renderCreateIngredientsDropdowns(ingredients_quantity, rows) {
+function renderCreateIngredientsDropdowns(ingredients_quantity, user_name, rows) {
 	var html = "";
 	for (var i = 0; i < ingredients_quantity; i++) {
 		html += "<select id='ingredient_choice" + i + "'>";
 		html += "<optgroup label='Select an Ingredient'>";
-		for (var i = 0; i < rows.length; i++) {
-			html += "<option value='" + rows[i].ingredient_name + "'>" + "</option>";
+		for (var j = 0; j < rows.length; j++) {
+			if (rows[j].user_name == user_name)
+			{
+				html += "<option value='" + rows[j].ingredient_name + "'>" + "</option>";
+			}
 		}
 		html += "</select>";
 	}

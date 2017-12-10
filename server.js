@@ -120,10 +120,10 @@ app.get('/recipe_add', function(req, res){
 
 app.post('submit_ingredients_quantity', function(req, res) {
 	db.once('db_get_rows_success', function(msg) {
-		res.send(page_manager.renderCreateIngredientsDropdowns(req.body.quantity, msg));
+		res.send(page_manager.renderCreateIngredientsDropdowns(req.body.quantity, req.body.user_name, msg));
 	});
 	db.once('db_get_rows_error', function(msg) {
 		res.send(msg);
 	});
-	db.get_rows('Ingredients');
+	db.get_rows('Pantry');
 });

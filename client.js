@@ -133,7 +133,8 @@ function login() {
 function submitIngredientsQuantity() {
 	var ingredients_quantity = $("#ingredients_quantity");
 	var params = {
-		quantity: ingredients_quantity
+		quantity: ingredients_quantity,
+		user_name: data_user_name
 	};
 	
 	$.ajax({
