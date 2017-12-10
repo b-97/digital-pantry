@@ -20,7 +20,7 @@ function renderHomePage() {
 function renderViewIngredientsPage() {
 	var html = "";
 	html += "<h1>List of Ingredients in Pantry</h1>";
-	html += "<button onclick='requestTable('/pantry_table')'>Display Ingredients</button>";
+	html += "<button onclick=\"requestTable(\'/pantry_table\')\">Display Ingredients</button>";
 	html += "<div id='display'>";
 	html += "<!-- To be populated by requestTable -->";
 	html += "</div>";
@@ -34,13 +34,13 @@ function renderAddIngredientsPage() {
 	html += "<input type='text' id='ingredient_name' placeholder='Enter Ingredient Name'>";
 	html += "<input type='text' id='measurement_unit' placeholder='Enter Measurement Unit'>";
 	html += "<input type='text' id='quantity' placeholder='Enter Quantity'>";
-	html += "<button onclick='addIngredient()'>Add Ingredient</button>";
+	html += "<button onclick=\"addIngredient()\">Add Ingredient</button>";
 	return html;
 }
 function renderViewRecipesPage() {
 	var html = "";
 	html += "<h1>List of Recipes in Pantry</h1>";
-	html += "<button onclick='requestTable('./recipes_list')'>Display Recipes</button>";
+	html += "<button onclick=\"requestTable(\'/recipes_list\')\">Display Recipes</button>";
 	html += "<div id='display'>";
 	html += "<!-- To be populated by requestTable -->";
 	html += "</div>";
