@@ -118,7 +118,7 @@ app.get('/recipe_add', function(req, res){
 	db.add_recipe(req.query.recipe_instructions, req.query.recipe_id, req.query.recipe_name, req.query.user_name, req.query.ingredients);
 });
 
-app.post('submit_ingredients_quantity', function(req, res) {
+app.post('/submit_ingredients_quantity', function(req, res) {
 	db.once('db_get_rows_success', function(msg) {
 		res.send(page_manager.renderCreateIngredientsDropdowns(req.body.quantity, req.body.user_name, msg));
 	});
