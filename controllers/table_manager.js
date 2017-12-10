@@ -128,7 +128,19 @@ class db extends EventEmitter{
 	******************************************************************************/
 	modify_users_row(user_name, password, first_name, last_name){
 		var self = this;
-		self.emit('success_status', "");
+		var sqlQ = "INSERT INTO Users ('user_name','password','first_name','last_name') VALUES (" + user_name + ", " + password + ", " + first_name + ", " + last_name + ");";
+		con.query(sqlQ, function(err, rows, fields){
+			if (err)
+			{
+				self.emit('db_users_add_fail', err);
+			}
+			else
+			{
+				self.emit('db_users_add_success', "Success");
+			}
+		});
+
+		self.emit('db_users_add_fail', "Never queried");
 	}
 	modify_pantry_row(id, user_name, ingredient_name, measurement_unit, quantity){
 		var self = this;
@@ -143,15 +155,39 @@ class db extends EventEmitter{
 				self.emit('db_pantry_add_success', "Success");
 			}
 		});
-		self.emit('pantryadd', false);
+		self.emit('pantryadd', "Never queried");
 	}
 	modify_ingredients_row(recipe_id, ingredient_name, measurement_unit, quantity){
 		var self = this;
-		self.emit('success_status', "");
+var sqlQ = "INSERT INTO Ingredients ('recipe_id','ingredient_name','measurement_unit','quantity') VALUES (" + recipe_id + ", " + ingredient_name + ", " + measurement_unit + ", " + quantity + ");";
+		con.query(sqlQ, function(err, rows, fields){
+			if (err)
+			{
+				self.emit('db_ingredient_add_fail', err);
+			}
+			else
+			{
+				self.emit('db_ingredient_add_success', "Success");
+			}
+		});
+
+		self.emit('db_ingredient_add_fail', "Never queried");
 	}
 	modify_recipes_row(recipe_instructions, recipe_id, recipe_name, user_name){
 		var self = this;
-		self.emit('success_status', "");
+var sqlQ = "INSERT INTO Recipe ('recipe_instructions','recipe_id','recipe_name','user_name') VALUES (" + recipe_instructions + ", " + recipe_id + ", " + recipe_name + ", " + user_name + ");";
+		con.query(sqlQ, function(err, rows, fields){
+			if (err)
+			{
+				self.emit('db_recipe_add_fail', err);
+			}
+			else
+			{
+				self.emit('db_recipe_add_success', "Success");
+			}
+		});
+
+		self.emit('db_recipe_add_fail', "Never queried");
 	}
 	row_count(table_name){
 		var self = this;
@@ -166,6 +202,15 @@ class db extends EventEmitter{
 				return rows.length;
 			}
 		});
+	}
+	add_recipe(recipe_instructions, recipe_id, recipe_name, user_name, ingredients)
+	{
+		modify_recipes_row(recipe_instructions, recipe_id, recipe_name, user_name);
+		for(i = 0; i < ingredients.length; i++)
+		{
+			modify_ingredients_row(recipe_id, ingredients[i][0], ingredients[i][1], ingredients[i][2]);
+		}
+		self.emit('db_adding_recipe_success', "Hurray!");
 	}
 }
 
