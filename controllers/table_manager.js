@@ -53,7 +53,7 @@ class db extends EventEmitter{
 	***************************************************************************/
 	get_table(key_name, key, table){
 		var self = this;
-		var sql_string = "SELECT * FROM " + table + " WHERE " + key_name + " = '" + key + "'";
+		var sql_string = "SELECT * FROM " + table + " WHERE " + key_name + " = '" + key + "';";
 		con.query(sql_string, function(err, rows, fields) {
 			if (!err){
 				if (table == "Pantry") {
