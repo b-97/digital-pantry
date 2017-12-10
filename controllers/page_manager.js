@@ -60,16 +60,19 @@ function renderCreateRecipePage() {
 
 function renderCreateIngredientsDropdowns(ingredients_quantity, user_name, rows) {
 	var html = "";
+	html += "<h3>Enter Recipe Information Below</h3>";
 	for (var i = 0; i < ingredients_quantity; i++) {
 		html += "<select id='ingredient_choice" + i + "'>";
 		html += "<optgroup label='Select an Ingredient'>";
 		for (var j = 0; j < rows.length; j++) {
 			if (rows[j].user_name == user_name)
 			{
-				html += "<option value='" + rows[j].ingredient_name + "'>" + "</option>";
+				html += "<option id='ingredient_" + j +  "' value='" + rows[j].ingredient_name + "'></option>";
 			}
 		}
 		html += "</select>";
+		html += "<textarea id='recipe_instructions' placeholder='Enter recipe instructions here'></textarea>";
+		html += "<button onclick='submitRecipe()'>Submit Recipe</button>";
 	}
 	return html;
 }

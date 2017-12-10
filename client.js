@@ -152,3 +152,7 @@ function submitIngredientsQuantity() {
 		}
 	});
 }
+
+function submitRecipe() {
+	
+}
