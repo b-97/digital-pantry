@@ -129,3 +129,25 @@ function login() {
 		}
 	});
 }
+
+function submitIngredientsQuantity() {
+	var ingredients_quantity = $("#ingredients_quantity");
+	var params = {
+		quantity: ingredients_quantity
+	};
+	
+	$.ajax({
+		type: "POST",
+		url: "./submit_ingredients_quantity",
+		dataType: "text",
+		data: params,
+		
+		success: function(msg) {
+			document.getElementById("display").innerHTML = msg;
+			$("#display").trigger("create");
+		},
+		error: function(jgXHR, textStatus, errorThrown){
+			alert("Error submitting number of ingredients: " + textStatus + " " + errorThrown);
+		}
+	});
+}

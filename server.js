@@ -95,9 +95,6 @@ app.get('/recipes_list', function(req, res) {
 	db.get_table('user_name', req.query.user_name, 'Recipes');
 });
 
-/*
-	Begin code that Nick added
-*/
 app.get('/ingredient_add', function(req, res){
 	db.once('db_pantry_add_fail', function(msg){
 		res.send([false, msg]);
@@ -120,6 +117,13 @@ app.get('/recipe_add', function(req, res){
 
 	db.add_recipe(req.query.recipe_instructions, req.query.recipe_id, req.query.recipe_name, req.query.user_name, req.query.ingredients);
 });
-/*
-	End code that Nick added
-*/
+
+app.post('submit_ingredients_quantity', function(req, res) {
+	db.once('db_get_rows_success', function(msg) {
+		res.send(page_manager.renderCreateIngredientsDropdowns(req.body.quantity, msg));
+	});
+	db.once('db_get_rows_error', function(msg) {
+		res.send(msg);
+	});
+	db.get_rows('Ingredients');
+});

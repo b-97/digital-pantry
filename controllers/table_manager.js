@@ -51,6 +51,19 @@ class db extends EventEmitter{
 			For now, all of these functions return an empty string if the table
 				request failed.
 	***************************************************************************/
+	get_rows(table) {
+		var self = this;
+		var sql_request = "SELECT * FROM " + table + ";";
+		con.query(sql_request, function(err, rows, fields) {
+			if (!err) {
+				self.emit('db_get_rows_success', rows);
+			}
+			else {
+				console.log('Error making the following SQL request: ' + sql_request);
+				self.emit('db_get_rows_error', err);
+			}
+		});
+	}
 	get_table(key_name, key, table){
 		var self = this;
 		var sql_string = "SELECT * FROM " + table + " WHERE " + key_name + " = '" + key + "';";
