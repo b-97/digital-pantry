@@ -105,9 +105,10 @@ app.get('/ingredient_add', function(req, res){
 	db.once('db_pantry_add_success', function(msg){
 		res.send([true]);
 	});
-	var id = db.row_count("Pantry");
-	console.log("id = " + id);
-	db.modify_pantry_row(id, req.query.user_name, req.query.ingredient_name, req.query.measurement_unit, req.query.quantity);
+	db.once('count_done', function(msg){
+		db.modify_pantry_row(msg, req.query.user_name, req.query.ingredient_name, req.query.measurement_unit, req.query.quantity);
+	});
+	db.row_count("Pantry");
 });
 app.get('/recipe_add', function(req, res){
 	db.once('db_adding_recipe_fail', function(msg){

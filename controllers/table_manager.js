@@ -128,7 +128,7 @@ class db extends EventEmitter{
 	******************************************************************************/
 	modify_users_row(user_name, password, first_name, last_name){
 		var self = this;
-		var sqlQ = "INSERT INTO Users ('user_name','password','first_name','last_name') VALUES (" + user_name + ", " + password + ", " + first_name + ", " + last_name + ");";
+		var sqlQ = "INSERT INTO Users (user_name, password, first_name, last_name) VALUES (" + user_name + ", " + password + ", " + first_name + ", " + last_name + ");";
 		console.log(sqlQ);
 		con.query(sqlQ, function(err, rows, fields){
 			if (err)
@@ -145,12 +145,12 @@ class db extends EventEmitter{
 	}
 	modify_pantry_row(id, user_name, ingredient_name, measurement_unit, quantity){
 		var self = this;
-		var sqlQ = "INSERT INTO Pantry ('id','user_name','ingredient_name','measurement_unit','quantity') VALUES ('" + id + "', '" + user_name + "', '" + ingredient_name + "', '" + measurement_unit + "', '" + quantity + "');";
+		var sqlQ = "INSERT INTO Pantry (id, user_name, ingredient_name, measurement_unit, quantity) VALUES ('" + id + "', '" + user_name + "', '" + ingredient_name + "', '" + measurement_unit + "', " + quantity + ");";
 		console.log(sqlQ);
 		con.query(sqlQ, function(err, rows, fields){
 			if (err)
 			{
-				self.emit('db_pantry_add_fail', sqlQ);
+				self.emit('db_pantry_add_fail', err);
 			}
 			else
 			{
@@ -161,7 +161,7 @@ class db extends EventEmitter{
 	}
 	modify_ingredients_row(recipe_id, ingredient_name, measurement_unit, quantity){
 		var self = this;
-var sqlQ = "INSERT INTO Ingredients ('recipe_id','ingredient_name','measurement_unit','quantity') VALUES (" + recipe_id + ", " + ingredient_name + ", " + measurement_unit + ", " + quantity + ");";
+var sqlQ = "INSERT INTO Ingredients (recipe_id, ingredient_name, measurement_unit, quantity) VALUES (" + recipe_id + ", " + ingredient_name + ", " + measurement_unit + ", " + quantity + ");";
 		con.query(sqlQ, function(err, rows, fields){
 			if (err)
 			{
@@ -177,7 +177,7 @@ var sqlQ = "INSERT INTO Ingredients ('recipe_id','ingredient_name','measurement_
 	}
 	modify_recipes_row(recipe_instructions, recipe_id, recipe_name, user_name){
 		var self = this;
-var sqlQ = "INSERT INTO Recipe ('recipe_instructions','recipe_id','recipe_name','user_name') VALUES (" + recipe_instructions + ", " + recipe_id + ", " + recipe_name + ", " + user_name + ");";
+var sqlQ = "INSERT INTO Recipe (recipe_instructions, recipe_id, recipe_name, user_name) VALUES (" + recipe_instructions + ", " + recipe_id + ", " + recipe_name + ", " + user_name + ");";
 		con.query(sqlQ, function(err, rows, fields){
 			if (err)
 			{
@@ -198,12 +198,12 @@ var sqlQ = "INSERT INTO Recipe ('recipe_instructions','recipe_id','recipe_name',
 			if (err)
 			{
 				console.log("Error with row count: " + sqlQ);
-				return 0;
+				self.emit('count_done', 0);
 			}
 			else
 			{
 				console.log("Successful row count query: " + rows.length + " rows");
-				return rows.length;
+				self.emit('count_done', rows.length);
 			}
 		});
 	}
