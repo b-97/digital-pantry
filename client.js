@@ -146,7 +146,8 @@ function createAccount() {
 		
 		success: function(msg) {
 			if (msg == "Success") {
-				login();
+				alert("You have created an account successfully! Please sign in.");
+				requestPage("/login_page");
 			}
 		},
 		error: function(jgXHR, textStatus, errorThrown){
