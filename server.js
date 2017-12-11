@@ -37,9 +37,11 @@ app.get('/logout', function (req, res) {
 app.post('/create_account', function(req, res) {
 	db.once('db_users_add_success', function(msg){
 		res.send(msg);
+		console.log("Successfully created a new account.");
 	});
 	db.once('db_users_add_fail', function(msg){
 		res.send(msg);
+		console.log("Failed to create a new account.");
 	});
 	db.modify_users_row(req.body.username, req.body.password,
 		req.body.first_name, req.body.last_name);
