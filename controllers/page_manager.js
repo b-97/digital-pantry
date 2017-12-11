@@ -7,7 +7,18 @@ function renderWelcomePage() {
 	html += "<p>Welcome to Digital Pantry! Please sign in or create an account below.</p>";
 	html += "<input type='text' id='username' placeholder='Enter Username'>";
 	html += "<input type='password' id='password' placeholder='Enter Password'>";
+	html += "<div id='display'>";
+	html += "<!-- To be populated by requestPage -->";
 	html += "<button onclick='login()'>Login</button>";
+	html += "<button onclick='requestPage('./name_fields')'>Create Account</button>";
+	html += "</div>";
+	return html;
+}
+
+function renderNameFields() {
+	var html = "";
+	html += "<input type='text' id='first_name' placeholder='Enter First Name'>";
+	html += "<input type='text' id='last_name' placeholder='Enter Last Name'>";
 	html += "<button onclick='createAccount()'>Create Account</button>";
 	return html;
 }
@@ -97,6 +108,7 @@ function renderPanelLoggedOut() {
 
 exports.renderWelcomePage = renderWelcomePage;
 exports.renderHomePage = renderHomePage;
+exports.renderNameFields = renderNameFields;
 exports.renderViewIngredientsPage = renderViewIngredientsPage;
 exports.renderAddIngredientsPage = renderAddIngredientsPage;
 exports.renderViewRecipesPage = renderViewRecipesPage;

@@ -121,8 +121,36 @@ function login() {
 		success: function(msg) {
 			requestPanel('./panel_logged_in');
 			requestPage('./homepage');
-			data_user_name = params.username;;
+			data_user_name = params.username;
 			console.log(msg);
+		},
+		error: function(jgXHR, textStatus, errorThrown){
+			alert("Error logging in: " + textStatus + " " + errorThrown);
+		}
+	});
+}
+
+function displayNameFields() {
+	
+}
+
+function createAccount() {
+	var params = {
+		username: $("#username").val(),
+		password: $("#password").val(),
+		first_name: $("#first_name").val(),
+		last_name: $("#last_name").val()
+	};
+	
+	$.ajax({
+		type: "POST",
+		url: "./create_account",
+		dataType: "text",
+		data: params,
+		
+		success: function(msg) {
+			console.log(msg);
+			login();
 		},
 		error: function(jgXHR, textStatus, errorThrown){
 			alert("Error logging in: " + textStatus + " " + errorThrown);

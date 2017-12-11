@@ -69,6 +69,10 @@ app.get('/panel_logged_out', function(req, res) {
 	res.send(page_manager.renderPanelLoggedOut());
 });
 
+app.get('/name_fields', function(req, res) {
+	res.send(page_manager.renderNameFields());
+});
+
 // pantry_table sends the full table for a particular user.
 app.get('/pantry_table', function(req, res) {
 	db.once('db_get_response_success', function(msg) {
