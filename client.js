@@ -145,10 +145,8 @@ function createAccount() {
 		data: params,
 		
 		success: function(msg) {
-			if (msg == "Success") {
-				alert("You have created an account successfully! Please sign in.");
-				requestPage("/login_page");
-			}
+			alert("You have created an account successfully! Please sign in.");
+			requestPage("/login_page");
 		},
 		error: function(jgXHR, textStatus, errorThrown){
 			alert("Error logging in: " + textStatus + " " + errorThrown);
