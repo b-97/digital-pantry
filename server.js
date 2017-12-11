@@ -34,7 +34,7 @@ app.post('/login', function(req, res) {
 app.get('/logout', function (req, res) {
 	req.session.reset();
 	return res.redirect('/');
-});5
+});
 
 /*
 	/homepage, /view_ingredients_page, /add_ingredients_page,
@@ -130,10 +130,10 @@ app.post('/submit_ingredients_quantity', function(req, res) {
 app.post('/create_account', function(req, res) {
 	db.once('db_users_add_success', function(msg){
 		res.send(msg);
-	}
+	});
 	db.once('db_users_add_fail', function(msg){
 		res.send(msg);
-	}
+	});
 	db.modify_users_row(req.body.user_name, req.body.password,
 		req.body.first_name, req.body.last_name);
-}
+});
