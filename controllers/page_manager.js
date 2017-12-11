@@ -68,19 +68,17 @@ function renderViewRecipesPage() {
 	return html;
 }
 
-function renderCreateRecipePage() {
+function renderIngredientsQuantityPage() {
 	var html = "";
 	html += "<h1>Create a Recipe from Ingredients in Pantry</h1>";
 	html += "<input type='text' id='ingredients_quantity' placeholder='Enter the number of ingredients this recipe will have'>";
 	html += "<button onclick='submitIngredientsQuantity()'>Submit</button>";
-	html += "<div id='display'>";
-	html += "<!-- To be populated by submitIngredientsQuantity -->";
-	html += "</div>";
 	return html;
 }
 
-function renderCreateIngredientsDropdowns(ingredients_quantity, rows) {
+function renderCreateRecipePage(ingredients_quantity, rows) {
 	var html = "";
+	html += "<h1>Create a Recipe from Ingredients in Pantry</h1>";
 	html += "<h3>Enter Recipe Information Below</h3>";
 	html += "<input type='text' id='recipe_name' placeholder='Enter the recipe name'>";
 	for (var i = 0; i < ingredients_quantity; i++) {
@@ -90,7 +88,8 @@ function renderCreateIngredientsDropdowns(ingredients_quantity, rows) {
 		for (var j = 0; j < rows.length; j++) {
 			html += "<option id='ingredient_" + i + "_" + j + "' value='" + rows[j].ingredient_name + "'>" + rows[j].ingredient_name + "</option>";
 		}
-		html += "</select><input type='text' id='quant" + i + "'></input><br>";
+		html += "</select>";
+		html += "<input type='text' id='quant" + i + "' placeholder='Enter quantity'></input>";
 	}
 	html += "<textarea id='recipe_instructions' placeholder='Enter recipe instructions here'></textarea>";
 	html += "<button onclick='submitRecipe()'>Submit Recipe</button>";
@@ -128,7 +127,7 @@ exports.renderHomePage = renderHomePage;
 exports.renderViewIngredientsPage = renderViewIngredientsPage;
 exports.renderAddIngredientsPage = renderAddIngredientsPage;
 exports.renderViewRecipesPage = renderViewRecipesPage;
+exports.renderIngredientsQuantityPage = renderIngredientsQuantityPage;
 exports.renderCreateRecipePage = renderCreateRecipePage;
-exports.renderCreateIngredientsDropdowns = renderCreateIngredientsDropdowns;
 exports.renderPanelLoggedIn = renderPanelLoggedIn;
 exports.renderPanelLoggedOut = renderPanelLoggedOut;

@@ -55,7 +55,7 @@ app.get('/welcome_page', function(req, res) {
 	res.send(page_manager.renderWelcomePage());
 });
 app.get('/login_page', function(req, res) {
-	return res.send(page_manager.renderLoginPage());
+	res.send(page_manager.renderLoginPage());
 });
 app.get('/create_account_page', function(req, res) {
 	res.send(page_manager.renderCreateAccountPage());
@@ -73,7 +73,16 @@ app.get('/view_recipes_page', function(req, res) {
 	res.send(page_manager.renderViewRecipesPage());
 });
 app.get('/add_recipes_page', function(req, res) {
-	res.send(page_manager.renderCreateRecipePage());
+	res.send(page_manager.renderIngredientsQuantityPage());
+});
+app.post('/submit_ingredients_quantity', function(req, res) {
+	db.once('db_get_rows_success', function(msg) {
+		res.send(page_manager.renderCreateRecipePage(req.body.quantity, msg));
+	});
+	db.once('db_get_rows_error', function(msg) {
+		res.send(msg);
+	});
+	db.get_rows(req.body.user_name, 'Pantry');
 });
 
 /*	/panel_logged_in and /panel_logged_out send the data for the panel.
@@ -132,14 +141,4 @@ app.get('/recipe_add', function(req, res){
 	});
 
 	db.add_recipe(req.query.recipe_instructions, req.query.recipe_id, req.query.recipe_name, req.query.user_name, req.query.ingredients);
-});
-
-app.post('/submit_ingredients_quantity', function(req, res) {
-	db.once('db_get_rows_success', function(msg) {
-		res.send(page_manager.renderCreateIngredientsDropdowns(req.body.quantity, msg));
-	});
-	db.once('db_get_rows_error', function(msg) {
-		res.send(msg);
-	});
-	db.get_rows(req.body.user_name, 'Pantry');
 });

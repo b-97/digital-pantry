@@ -156,9 +156,8 @@ function createAccount() {
 }
 
 function submitIngredientsQuantity() {
-	var ingredients_quantity = $("#ingredients_quantity").val();
 	var params = {
-		quantity: ingredients_quantity,
+		quantity: $("#ingredients_quantity").val(),
 		user_name: data_user_name
 	};
 	
@@ -169,8 +168,8 @@ function submitIngredientsQuantity() {
 		data: params,
 		
 		success: function(msg) {
-			document.getElementById("display").innerHTML = msg;
-			$("#display").trigger("create");
+			document.getElementById("page-body").innerHTML = msg;
+			$("#page-body").trigger("create");
 		},
 		error: function(jgXHR, textStatus, errorThrown){
 			alert("Error submitting number of ingredients: " + textStatus + " " + errorThrown);
