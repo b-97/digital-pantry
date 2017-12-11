@@ -5,8 +5,8 @@
 function renderWelcomePage() {
 	var html = "";
 	html += "<p>Welcome to Digital Pantry! Please sign in or create an account below.</p>";
-	html += "<button onclick=\"requestPage(\'/login_page\')\">Sign In</button>";
-	html += "<button onclick=\"requestPage(\'/create_account_page\')\">Create Account</button>";
+	html += "<button onclick=\"requestPage('/login_page')\">Sign In</button>";
+	html += "<button onclick=\"requestPage('/create_account_page')\">Create Account</button>";
 	return html;
 }
 
@@ -30,14 +30,18 @@ function renderCreateAccountPage() {
 
 function renderHomePage() {
 	var html = "";
-	html += "<p>Thank you for signing in! Digital Pantry is the best way to manage your recipes and ingredients. Get started by using the drawer in the upper-left corner to navigate.</p>";
+	html += "<p>Thank you for signing in! Digital Pantry is the best way to manage your recipes and ingredients. Get started by using the links below.</p>";
+	html += "<button onclick=\"requestPage('/view_ingredients_page')\">View Ingredients</button>";
+	html += "<button onclick=\"requestPage('/add_ingredients_page')\">Add Ingredients</button>";
+	html += "<button onclick=\"requestPage('/view_recipes_page')\">View Recipes</button>";
+	html += "<button onclick=\"requestPage('/add_recipes_page')\">Add a Recipe</button>";
 	return html;
 }
 
 function renderViewIngredientsPage() {
 	var html = "";
 	html += "<h1>List of Ingredients in Pantry</h1>";
-	html += "<button onclick=\"requestTable(\'/pantry_table\')\">Display Ingredients</button>";
+	html += "<button onclick=\"requestTable('/pantry_table')\">Display Ingredients</button>";
 	html += "<div id='display'>";
 	html += "<!-- To be populated by requestTable -->";
 	html += "</div>";
@@ -51,13 +55,13 @@ function renderAddIngredientsPage() {
 	html += "<input type='text' id='ingredient_name' placeholder='Enter Ingredient Name'>";
 	html += "<input type='text' id='measurement_unit' placeholder='Enter Measurement Unit'>";
 	html += "<input type='text' id='quantity' placeholder='Enter Quantity'>";
-	html += "<button onclick=\"addIngredient()\">Add Ingredient</button>";
+	html += "<button onclick='addIngredient()'>Add Ingredient</button>";
 	return html;
 }
 function renderViewRecipesPage() {
 	var html = "";
 	html += "<h1>List of Recipes in Pantry</h1>";
-	html += "<button onclick=\"requestTable(\'/recipes_list\')\">Display Recipes</button>";
+	html += "<button onclick=\"requestTable('/recipes_list')\">Display Recipes</button>";
 	html += "<div id='display'>";
 	html += "<!-- To be populated by requestTable -->";
 	html += "</div>";
@@ -68,7 +72,7 @@ function renderCreateRecipePage() {
 	var html = "";
 	html += "<h1>Create a Recipe from Ingredients in Pantry</h1>";
 	html += "<input type='text' id='ingredients_quantity' placeholder='Enter the number of ingredients this recipe will have'>";
-	html += "<button onclick=\"submitIngredientsQuantity()\">Submit</button>";
+	html += "<button onclick='submitIngredientsQuantity()'>Submit</button>";
 	html += "<div id='display'>";
 	html += "<!-- To be populated by submitIngredientsQuantity -->";
 	html += "</div>";
@@ -95,23 +99,24 @@ function renderCreateIngredientsDropdowns(ingredients_quantity, rows) {
 
 function renderPanelLoggedIn() {
 	var html = "";
-	html += "<h3>Welcome!</h3>";
+	html += "<h3>Welcome to your personal pantry!</h3>";
 	html += "<ul data-role='listview' data-inset='true'>";
-	html += "<li data-icon='false'><a onClick=\"requestPage(\'/view_ingredients_page\')\">View Ingredients</a></li>";
-	html += "<li data-icon='false'><a onClick=\"requestPage(\'/add_ingredients_page\')\">Add Ingredients</a></li>";
-	html += "<li data-icon='false'><a onClick=\"requestPage(\'/view_recipes_page\')\">View Recipes</a></li>";
-	html += "<li data-icon='false'><a onClick=\"requestPage(\'/add_recipes_page\')\">Add a Recipe</a></li>";
+	html += "<li data-icon='false'><a onclick=\"requestPage('/homepage')\">Homepage</a></li>";
+	html += "<li data-icon='false'><a onclick=\"requestPage('/view_ingredients_page')\">View Ingredients</a></li>";
+	html += "<li data-icon='false'><a onclick=\"requestPage('/add_ingredients_page')\">Add Ingredients</a></li>";
+	html += "<li data-icon='false'><a onclick=\"requestPage('/view_recipes_page')\">View Recipes</a></li>";
+	html += "<li data-icon='false'><a onclick=\"requestPage('/add_recipes_page')\">Add a Recipe</a></li>";
 	html += "</ul>";
 	return html;
 }
 
 function renderPanelLoggedOut() {
 	var html = "";
-	html += "<h3>Please Sign In or Create an Account</h3>";
+	html += "<h3>Please sign in or create an account below.</h3>";
 	html += "<ul data-role='listview' data-inset='true'>";
-	html += "<li data-icon='false'><a onClick=\"requestPage(\'/welcome_page\')\">Homepage</a></li>";
-	html += "<li data-icon='false'><a onClick=\"requestPage(\'/login_page\')\">Sign In</a></li>";
-	html += "<li data-icon='false'><a onClick=\"requestPage(\'/create_account_page\')\">Create Account</a></li>";
+	html += "<li data-icon='false'><a onclick=\"requestPage('/welcome_page')\">Homepage</a></li>";
+	html += "<li data-icon='false'><a onclick=\"requestPage('/login_page')\">Sign In</a></li>";
+	html += "<li data-icon='false'><a onclick=\"requestPage('/create_account_page')\">Create Account</a></li>";
 	html += "</ul>";
 	return html;
 }
