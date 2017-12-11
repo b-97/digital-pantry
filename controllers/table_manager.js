@@ -141,6 +141,7 @@ class db extends EventEmitter{
 	******************************************************************************/
 	modify_users_row(user_name, password, first_name, last_name){
 		var self = this;
+		
 		var sqlQ = "INSERT INTO Users (user_name, password, first_name, last_name) VALUES ('" + user_name + "', '" + password + "', '" + first_name + "', '" + last_name + "');";
 		console.log(sqlQ);
 		con.query(sqlQ, function(err, rows, fields){
@@ -153,24 +154,59 @@ class db extends EventEmitter{
 				self.emit('db_users_add_success', "Success");
 			}
 		});
-
 		self.emit('db_users_add_fail', "Never queried");
 	}
-	modify_pantry_row(id, user_name, ingredient_name, measurement_unit, quantity){
+	check_membership(table, parameters)
+	{
 		var self = this;
-		var sqlQ = "INSERT INTO Pantry (id, user_name, ingredient_name, measurement_unit, quantity) VALUES ('" + id + "', '" + user_name + "', '" + ingredient_name + "', '" + measurement_unit + "', " + quantity + ");";
-		console.log(sqlQ);
+		var sqlQ = "SELECT * FROM " + table + "WHERE " + parameters[0];
+		
+		for (i = 1; i < parameters.length; i++)
+		{
+			sqlQ += " && ";
+			sqlQ += parameters[i];
+		}
+		sqlQ += ";";
+		
 		con.query(sqlQ, function(err, rows, fields){
 			if (err)
 			{
-				self.emit('db_pantry_add_fail', err);
+				self.emit('db_not_found', err);
 			}
 			else
 			{
-				self.emit('db_pantry_add_success', "Success");
+				if (rows.length == 0)
+				{
+					self.emit('db_not_found', "Nothing there");
+				}
+				else
+				{
+					self.emit('db_found', "Yay");
+				}
 			}
 		});
-		self.emit('pantryadd', "Never queried");
+	}
+	modify_pantry_row(id, user_name, ingredient_name, measurement_unit, quantity){
+		var self = this;
+		this.once('db_not_found', function(msg){
+			var sqlQ = "INSERT INTO Pantry (id, user_name, ingredient_name, measurement_unit, quantity) VALUES ('" + id + "', '" + user_name + "', '" + ingredient_name + "', '" + measurement_unit + "', " + quantity + ");";
+			console.log(sqlQ);
+			con.query(sqlQ, function(err, rows, fields){
+				if (err)
+				{
+					self.emit('db_pantry_add_fail', err);
+				}
+				else
+				{
+					self.emit('db_pantry_add_success', "Success");
+				}
+			});
+		});
+		this.once('db_found', function(msg){
+			increment_pantry(user_name, ingredient_name, quantity);
+			self.emit('db_pantry_add_success', "Done");
+		});
+		self.emit('db_pantry_add_fail', "Never queried");
 	}
 	modify_ingredients_row(recipe_id, ingredient_name, measurement_unit, quantity){
 		var self = this;
