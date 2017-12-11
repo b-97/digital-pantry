@@ -25,8 +25,18 @@ class db extends EventEmitter{
 	constructor(){super();}
 	
 	//INITIAL AUTHENTICATION REQUEST
+	/*
+		authenticate - checks to see if a username and password exists in
+			the MySql database.
+		Args:
+			username - string
+			password - string
+		Emits:
+			auth - boolean result of the authentication
+	*/
 	authenticate(username, password){
 		var self = this;
+		//query to search the database
 		var q = "SELECT first_name from Users where user_name = \'" 
 					+ username + "\' && password = \'" + password+"\'";
 		con.query(q, function(err, rows, field){
@@ -36,21 +46,25 @@ class db extends EventEmitter{
 			}
 			else
 			{
-				if (rows.length == 0){
+				if (rows.length == 0){			//if no result, it failed
+					console.log("Access Denied.");
 					self.emit('auth', false);
 				}
 				self.emit('auth', true);
-				console.log("We did it???");
+				console.log("Access Granted.");
 			}
 		});
 	}
-	/***************************************************************************
-		HTML table MySQL requests
-			All of these functions request for multiple rows from the mysql table,
-				and output their result in an HTML-formatted table.
-			For now, all of these functions return an empty string if the table
-				request failed.
-	***************************************************************************/
+	/*
+		get_rows - takes a username and a table, and makes a request to the
+			mysql table asking for all rows where the username matches.
+
+		Args:
+			user_name - string
+			table - string
+		Emits:
+			
+	*/
 	get_rows(user_name, table) {
 		var self = this;
 		var sql_request = "SELECT * FROM " + table + " WHERE user_name = '" + user_name + "';";
