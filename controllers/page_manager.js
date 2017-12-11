@@ -5,8 +5,8 @@
 function renderWelcomePage() {
 	var html = "";
 	html += "<p>Welcome to Digital Pantry! Please sign in or create an account below.</p>";
-	html += "<button onclick=\"requestPage('/login_page')\">Sign In</button>";
-	html += "<button onclick=\"requestPage('/create_account_page')\">Create Account</button>";
+	html += "<button onclick=\"requestPageContent('/login_page', 'page-body', null)\">Sign In</button>";
+	html += "<button onclick=\"requestPageContent('/create_account_page', 'page-body', null)\">Create Account</button>";
 	return html;
 }
 
@@ -31,10 +31,10 @@ function renderCreateAccountPage() {
 function renderHomePage() {
 	var html = "";
 	html += "<p>Thank you for signing in! Digital Pantry is the best way to manage your recipes and ingredients. Get started by using the links below.</p>";
-	html += "<button onclick=\"requestPage('/view_ingredients_page')\">View Ingredients</button>";
-	html += "<button onclick=\"requestPage('/add_ingredients_page')\">Add Ingredients</button>";
-	html += "<button onclick=\"requestPage('/view_recipes_page')\">View Recipes</button>";
-	html += "<button onclick=\"requestPage('/add_recipes_page')\">Add a Recipe</button>";
+	html += "<button onclick=\"requestPageContent('/view_ingredients_page', 'page-body', null)\">View Ingredients</button>";
+	html += "<button onclick=\"requestPageContent('/add_ingredients_page', 'page-body', null)\">Add Ingredients</button>";
+	html += "<button onclick=\"requestPageContent('/view_recipes_page', 'page-body', null)\">View Recipes</button>";
+	html += "<button onclick=\"requestPageContent('/add_recipes_page', 'page-body', null)\">Add a Recipe</button>";
 	return html;
 }
 
@@ -100,11 +100,11 @@ function renderPanelLoggedIn() {
 	var html = "";
 	html += "<h3>Welcome to your personal pantry!</h3>";
 	html += "<ul data-role='listview' data-inset='true'>";
-	html += "<li data-icon='false'><a onclick=\"requestPage('/homepage')\">Homepage</a></li>";
-	html += "<li data-icon='false'><a onclick=\"requestPage('/view_ingredients_page')\">View Ingredients</a></li>";
-	html += "<li data-icon='false'><a onclick=\"requestPage('/add_ingredients_page')\">Add Ingredients</a></li>";
-	html += "<li data-icon='false'><a onclick=\"requestPage('/view_recipes_page')\">View Recipes</a></li>";
-	html += "<li data-icon='false'><a onclick=\"requestPage('/add_recipes_page')\">Add a Recipe</a></li>";
+	html += "<li data-icon='false'><a onclick=\"requestPageContent('/homepage', 'page-body', null)\">Homepage</a></li>";
+	html += "<li data-icon='false'><a onclick=\"requestPageContent('/view_ingredients_page', 'page-body', null)\">View Ingredients</a></li>";
+	html += "<li data-icon='false'><a onclick=\"requestPageContent('/add_ingredients_page', 'page-body', null)\">Add Ingredients</a></li>";
+	html += "<li data-icon='false'><a onclick=\"requestPageContent('/view_recipes_page', 'page-body', null)\">View Recipes</a></li>";
+	html += "<li data-icon='false'><a onclick=\"requestPageContent('/add_recipes_page', 'page-body', null)\">Add a Recipe</a></li>";
 	html += "</ul>";
 	return html;
 }
@@ -113,9 +113,9 @@ function renderPanelLoggedOut() {
 	var html = "";
 	html += "<h3>Please sign in or create an account below.</h3>";
 	html += "<ul data-role='listview' data-inset='true'>";
-	html += "<li data-icon='false'><a onclick=\"requestPage('/welcome_page')\">Homepage</a></li>";
-	html += "<li data-icon='false'><a onclick=\"requestPage('/login_page')\">Sign In</a></li>";
-	html += "<li data-icon='false'><a onclick=\"requestPage('/create_account_page')\">Create Account</a></li>";
+	html += "<li data-icon='false'><a onclick=\"requestPageContent('/welcome_page', 'page-body', null)\">Homepage</a></li>";
+	html += "<li data-icon='false'><a onclick=\"requestPageContent('/login_page', 'page-body', null)\">Sign In</a></li>";
+	html += "<li data-icon='false'><a onclick=\"requestPageContent('/create_account_page', 'page-body', null)\">Create Account</a></li>";
 	html += "</ul>";
 	return html;
 }

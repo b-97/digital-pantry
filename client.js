@@ -3,23 +3,22 @@
 var data_user_name = "";
 
 $(document).ready(function() {
-	requestPage('/welcome_page');
+	requestPageContent('/welcome_page', 'page-body', null);
 	requestPanel("panel_logged_out");
 });
 
-function requestPage(URL) {
-	console.log("Page requested: " + URL);
+function requestPageContent(URL, display_location, params) {
 	$.ajax({
 		type: "GET",
 		url: URL,
 		dataType: "text",
-		data: null,
+		data: params,
 		success: function(msg) {
-			document.getElementById("page-body").innerHTML = msg; // Populates page body with returned html data
-			$("#page-body").trigger("create"); // Forces a refresh of page content for jQuery Mobile styling
+			document.getElementById(display_location).innerHTML = msg; // Populates page body with returned html data
+			$("#" + display_location).trigger("create"); // Forces a refresh of page content for jQuery Mobile styling
 		},
 		error: function(jgXHR, textStatus, errorThrown){
-			alert("Error Requesting page " + URL + ": "+ textStatus + " " + errorThrown);
+			alert("Error requesting page content for " + URL + ": "+ textStatus + " " + errorThrown);
 		}
 	});
 }
@@ -64,9 +63,6 @@ function requestTable(table) {
 	});
 }
 
-/*
-	Begin code that Nick added
-*/
 function addIngredient()
 {
 	var name = document.getElementById("ingredient_name").value;
@@ -103,9 +99,6 @@ function addIngredient()
 		}
 	});
 }
-/*
-	End code that Nick added
-*/
 
 function login() {
 	var params = {
@@ -121,7 +114,7 @@ function login() {
 		
 		success: function(msg) {
 			requestPanel('./panel_logged_in');
-			requestPage('./homepage');
+			requestPageContent('./homepage', 'page-body', null);
 			data_user_name = params.username;
 			console.log(msg);
 		},
