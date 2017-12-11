@@ -56,6 +56,7 @@ class db extends EventEmitter{
 		var sql_request = "SELECT * FROM " + table + ";";
 		con.query(sql_request, function(err, rows, fields) {
 			if (!err) {
+				console.log("In table manager: " + rows);
 				self.emit('db_get_rows_success', rows);
 			}
 			else {

@@ -64,6 +64,7 @@ function renderCreateIngredientsDropdowns(ingredients_quantity, user_name, rows)
 	for (var i = 0; i < ingredients_quantity; i++) {
 		html += "<select id='ingredient_choice" + i + "'>";
 		html += "<optgroup label='Select an Ingredient'>";
+		console.log("In page_manager: " + rows);
 		for (var j = 0; j < rows.length; j++) {
 			if (rows[j].user_name == user_name)
 			{
