@@ -87,6 +87,7 @@ function addIngredient()
 		success: function(msg) {
 			if (msg[0])
 			{
+				console.log(msg);
 				alert("Successfully added ingredient");
 				document.getElementById("ingredient_name").value = "";
 				document.getElementById("measurement_unit").value = "";

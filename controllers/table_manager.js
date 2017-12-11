@@ -153,14 +153,13 @@ class db extends EventEmitter{
 				self.emit('db_users_add_success', "Success");
 			}
 		});
-		self.emit('db_users_add_fail', "Never queried");
 	}
 	check_membership(table, parameters)
 	{
 		var self = this;
 		var sqlQ = "SELECT * FROM " + table + "WHERE " + parameters[0];
 		
-		for (i = 1; i < parameters.length; i++)
+		for (var i = 1; i < parameters.length; i++)
 		{
 			sqlQ += " && ";
 			sqlQ += parameters[i];
@@ -193,19 +192,22 @@ class db extends EventEmitter{
 			con.query(sqlQ, function(err, rows, fields){
 				if (err)
 				{
+					console.log(err);
 					self.emit('db_pantry_add_fail', err);
 				}
 				else
 				{
+					console.log("modify pantry row mysql request worked");
 					self.emit('db_pantry_add_success', "Success");
 				}
 			});
 		});
 		this.once('db_found', function(msg){
+			console.log(msg);
 			increment_pantry(user_name, ingredient_name, quantity);
 			self.emit('db_pantry_add_success', "Done");
 		});
-		self.emit('db_pantry_add_fail', "Never queried");
+		self.check_membership("Pantry", "id = "+id);
 	}
 	modify_ingredients_row(recipe_id, ingredient_name, measurement_unit, quantity){
 		var self = this;
