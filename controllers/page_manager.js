@@ -5,18 +5,23 @@
 function renderWelcomePage() {
 	var html = "";
 	html += "<p>Welcome to Digital Pantry! Please sign in or create an account below.</p>";
-	html += "<input type='text' id='username' placeholder='Enter Username'>";
-	html += "<input type='password' id='password' placeholder='Enter Password'>";
-	html += "<div id='display'>";
-	html += "<!-- To be populated by requestPage -->";
-	html += "<button onclick='login()'>Login</button>";
-	html += "<button onclick=\"requestPage(\'/name_fields\')\">Create Account</button>";
-	html += "</div>";
+	html += "<button onclick=\"requestPage(\'/login_page\')\">Sign In</button>";
+	html += "<button onclick=\"requestPage(\'/create_account_page\')\">Create Account</button>";
 	return html;
 }
 
-function renderNameFields() {
+function renderLoginPage() {
 	var html = "";
+	html += "<input type='text' id='username' placeholder='Enter Username'>";
+	html += "<input type='password' id='password' placeholder='Enter Password'>";
+	html += "<button onclick='login()'>Login</button>";
+	return html;
+}
+
+function renderCreateAccountPage() {
+	var html = "";
+	html += "<input type='text' id='username' placeholder='Enter Username'>";
+	html += "<input type='password' id='password' placeholder='Enter Password'>";
 	html += "<input type='text' id='first_name' placeholder='Enter First Name'>";
 	html += "<input type='text' id='last_name' placeholder='Enter Last Name'>";
 	html += "<button onclick='createAccount()'>Create Account</button>";
@@ -108,7 +113,8 @@ function renderPanelLoggedOut() {
 
 exports.renderWelcomePage = renderWelcomePage;
 exports.renderHomePage = renderHomePage;
-exports.renderNameFields = renderNameFields;
+exports.renderLoginPage = renderLoginPage;
+exports.renderCreateAccountPage = renderCreateAccountPage;
 exports.renderViewIngredientsPage = renderViewIngredientsPage;
 exports.renderAddIngredientsPage = renderAddIngredientsPage;
 exports.renderViewRecipesPage = renderViewRecipesPage;

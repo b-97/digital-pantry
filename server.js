@@ -44,6 +44,12 @@ app.get('/logout', function (req, res) {
 app.get('/welcome_page', function(req, res) {
 	res.send(page_manager.renderWelcomePage());
 });
+app.get('/login_page', function(req, res) {
+	res.send(page_manager.renderLoginPage());
+});
+app.get('/create_account_page', function(req, res) {
+	res.send(page_manager.renderCreateAccountPage());
+});
 app.get('/homepage', function(req, res) {
 	res.send(page_manager.renderHomePage());
 });
@@ -67,10 +73,6 @@ app.get('/panel_logged_in', function(req, res) {
 });
 app.get('/panel_logged_out', function(req, res) {
 	res.send(page_manager.renderPanelLoggedOut());
-});
-
-app.get('/name_fields', function(req, res) {
-	res.send(page_manager.renderNameFields());
 });
 
 // pantry_table sends the full table for a particular user.
