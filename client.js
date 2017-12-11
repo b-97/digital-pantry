@@ -23,26 +23,6 @@ function requestPageContent(URL, display_location, params) {
 	});
 }
 
-function requestTable(table) {
-	console.log("Requested table: " + table);
-	var params = {
-		user_name: data_user_name
-	};
-	$.ajax({
-		type: "GET",
-		url: table,
-		dataType: "text",
-		data: params,
-		success: function(msg) {
-			document.getElementById("display").innerHTML = msg;
-			$("#display").trigger("create");
-		},
-		error: function(jgXHR, textStatus, errorThrown){
-			alert("Error requesting data: " + textStatus + " " + errorThrown);
-		}
-	});
-}
-
 function addIngredient()
 {
 	var name = document.getElementById("ingredient_name").value;
