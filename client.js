@@ -130,10 +130,6 @@ function login() {
 	});
 }
 
-function displayNameFields() {
-	
-}
-
 function createAccount() {
 	var params = {
 		username: $("#username").val(),
