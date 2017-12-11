@@ -120,7 +120,7 @@ app.get('/recipe_add', function(req, res){
 
 app.post('/submit_ingredients_quantity', function(req, res) {
 	db.once('db_get_rows_success', function(msg) {
-		console.log("In server: " + rows);
+		console.log("In server: " + msg);
 		res.send(page_manager.renderCreateIngredientsDropdowns(req.body.quantity, req.body.user_name, msg));
 	});
 	db.once('db_get_rows_error', function(msg) {
