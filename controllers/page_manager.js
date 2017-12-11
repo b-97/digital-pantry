@@ -117,9 +117,9 @@ function renderPanelLoggedOut() {
 }
 
 exports.renderWelcomePage = renderWelcomePage;
-exports.renderHomePage = renderHomePage;
 exports.renderLoginPage = renderLoginPage;
 exports.renderCreateAccountPage = renderCreateAccountPage;
+exports.renderHomePage = renderHomePage;
 exports.renderViewIngredientsPage = renderViewIngredientsPage;
 exports.renderAddIngredientsPage = renderAddIngredientsPage;
 exports.renderViewRecipesPage = renderViewRecipesPage;

@@ -145,11 +145,12 @@ function createAccount() {
 		data: params,
 		
 		success: function(msg) {
+			// Somebody please make this work :(
 			alert("You have created an account successfully! Please sign in.");
 			requestPage("/login_page");
 		},
 		error: function(jgXHR, textStatus, errorThrown){
-			alert("Error logging in: " + textStatus + " " + errorThrown);
+			alert("Error creating account: " + textStatus + " " + errorThrown);
 		}
 	});
 }
