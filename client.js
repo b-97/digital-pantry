@@ -8,6 +8,7 @@ $(document).ready(function() {
 });
 
 function requestPageContent(URL, display_location, params) {
+	console.log("Requesting page content for " + URL + " to be displayed in " + display_location + " with params " + params);
 	$.ajax({
 		type: "GET",
 		url: URL,
