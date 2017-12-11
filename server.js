@@ -35,13 +35,13 @@ app.get('/logout', function (req, res) {
 	return res.redirect('/');
 });
 app.post('/create_account', function(req, res) {
-	db.once('db_users_add_success', function(msg){
-		res.send(msg);
+	db.once('db_users_add_success', function(msg) {
 		console.log("Successfully created a new account.");
+		return res.send(msg);
 	});
-	db.once('db_users_add_fail', function(msg){
-		res.send(msg);
+	db.once('db_users_add_fail', function(msg) {
 		console.log("Failed to create a new account.");
+		return res.send(msg);
 	});
 	db.modify_users_row(req.body.username, req.body.password, req.body.first_name, req.body.last_name);
 });
