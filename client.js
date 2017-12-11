@@ -146,8 +146,8 @@ function createAccount() {
 		data: params,
 		
 		success: function(msg) {
-			// Somebody please make this work :(
 			alert(msg);
+			login();
 		},
 		error: function(jgXHR, textStatus, errorThrown){
 			alert("Error creating account: " + textStatus + " " + errorThrown);
