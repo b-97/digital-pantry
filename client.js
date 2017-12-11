@@ -4,7 +4,7 @@ var data_user_name = "";
 
 $(document).ready(function() {
 	requestPageContent('/welcome_page', 'page-body', null);
-	requestPanel("panel_logged_out");
+	requestPageContent('/panel_logged_out', 'panel-inner', null);
 });
 
 function requestPageContent(URL, display_location, params) {
@@ -19,26 +19,6 @@ function requestPageContent(URL, display_location, params) {
 		},
 		error: function(jgXHR, textStatus, errorThrown){
 			alert("Error requesting page content for " + URL + ": "+ textStatus + " " + errorThrown);
-		}
-	});
-}
-
-/*	Functions exactly the same as requestPage, except it populates the div of the
-		side panel rather than the body.
-*/
-function requestPanel(URL){
-	console.log(URL);
-	$.ajax({
-		type: "GET",
-		url: URL,
-		dataType: "text",
-		data: null,
-		success:function(msg) {
-			document.getElementById("panel-inner").innerHTML = msg;
-			$("#panel-inner").trigger("create");
-		},
-		error: function(jgXHR, textStatus, errorThrown){
-			alert("Error requesting panel " + URL + ": " + textStatus + " " + errorThrown);
 		}
 	});
 }
@@ -113,7 +93,7 @@ function login() {
 		data: params,
 		
 		success: function(msg) {
-			requestPanel('./panel_logged_in');
+			requestPageContent('./panel_logged_in', 'panel-inner', null);
 			requestPageContent('./homepage', 'page-body', null);
 			data_user_name = params.username;
 			console.log(msg);
