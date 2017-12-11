@@ -61,6 +61,7 @@ function renderCreateRecipePage() {
 function renderCreateIngredientsDropdowns(ingredients_quantity, rows) {
 	var html = "";
 	html += "<h3>Enter Recipe Information Below</h3>";
+	html += "<input type='text' id='recipe_name' placeholder='Enter the recipe name'>";
 	for (var i = 0; i < ingredients_quantity; i++) {
 		html += "<select id='ingredient_choice_" + i + "'>";
 		html += "<optgroup label='Select an Ingredient'>";
