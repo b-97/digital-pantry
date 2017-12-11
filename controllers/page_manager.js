@@ -10,7 +10,7 @@ function renderWelcomePage() {
 	html += "<div id='display'>";
 	html += "<!-- To be populated by requestPage -->";
 	html += "<button onclick='login()'>Login</button>";
-	html += "<button onclick=\"requestPage(\"./name_fields\")\">Create Account</button>";
+	html += "<button onclick=\"requestPage(\'/name_fields\')\">Create Account</button>";
 	html += "</div>";
 	return html;
 }

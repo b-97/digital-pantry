@@ -3,7 +3,7 @@
 var data_user_name = "";
 
 $(document).ready(function() {
-	requestPage('./welcome_page');
+	requestPage('/welcome_page');
 	requestPanel("panel_logged_out");
 });
 
