@@ -43,8 +43,7 @@ app.post('/create_account', function(req, res) {
 		res.send(msg);
 		console.log("Failed to create a new account.");
 	});
-	db.modify_users_row(req.body.username, req.body.password,
-		req.body.first_name, req.body.last_name);
+	db.modify_users_row(req.body.username, req.body.password, req.body.first_name, req.body.last_name);
 });
 
 /*
