@@ -71,9 +71,9 @@ function renderCreateIngredientsDropdowns(ingredients_quantity, user_name, rows)
 			}
 		}
 		html += "</select>";
-		html += "<textarea id='recipe_instructions' placeholder='Enter recipe instructions here'></textarea>";
-		html += "<button onclick='submitRecipe()'>Submit Recipe</button>";
 	}
+	html += "<textarea id='recipe_instructions' placeholder='Enter recipe instructions here'></textarea>";
+	html += "<button onclick='submitRecipe()'>Submit Recipe</button>";
 	return html;
 }
 
