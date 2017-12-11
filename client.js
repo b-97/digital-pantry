@@ -145,7 +145,9 @@ function createAccount() {
 		data: params,
 		
 		success: function(msg) {
-			login();
+			if (msg == "Success") {
+				login();
+			}
 		},
 		error: function(jgXHR, textStatus, errorThrown){
 			alert("Error logging in: " + textStatus + " " + errorThrown);

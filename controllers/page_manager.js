@@ -107,7 +107,12 @@ function renderPanelLoggedIn() {
 
 function renderPanelLoggedOut() {
 	var html = "";
-	html += "<h3>Please Sign In</h3>";
+	html += "<h3>Please Sign In or Create an Account</h3>";
+	html += "<ul data-role='listview' data-inset='true'>";
+	html += "<li data-icon='false'><a onClick=\"requestPage(\'/welcome_page\')\">Homepage</a></li>";
+	html += "<li data-icon='false'><a onClick=\"requestPage(\'/login_page\')\">Sign In</a></li>";
+	html += "<li data-icon='false'><a onClick=\"requestPage(\'/create_account_page\')\">Create Account</a></li>";
+	html += "</ul>";
 	return html;
 }
 
