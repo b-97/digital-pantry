@@ -80,17 +80,23 @@ function renderCreateRecipePage(ingredients_quantity, rows) {
 	var html = "";
 	html += "<h1>Create a Recipe from Ingredients in Pantry</h1>";
 	html += "<h3>Enter Recipe Information Below</h3>";
+	html += "<fieldset class='ui-grid-a'>";
 	html += "<input type='text' id='recipe_name' placeholder='Enter the recipe name'>";
 	for (var i = 0; i < ingredients_quantity; i++) {
+		html += "<div class='ui-block-a'>";
 		html += "<select id='ingredient_choice_" + i + "'>";
-		html += "<optgroup class='ui-block-a' label='Select an Ingredient'>";
-		console.log("In page_manager: " + rows);
+		html += "<optgroup label='Select an Ingredient'>";
 		for (var j = 0; j < rows.length; j++) {
 			html += "<option id='ingredient_" + i + "_" + j + "' value='" + rows[j].ingredient_name + "'>" + rows[j].ingredient_name + "</option>";
 		}
+		html += "</optgroup>";
 		html += "</select>";
-		html += "<input class='ui-block-b' type='text' id='quant" + i + "' placeholder='Enter quantity'></input>";
+		html += "</div>";
+		html += "<div class='ui-block-b'>";
+		html += "<input class='ui-block-b' type='text' id='quant" + i + "' placeholder='Enter quantity'>";
+		html += "</div>";
 	}
+	html += "</fieldset>";
 	html += "<textarea id='recipe_instructions' placeholder='Enter recipe instructions here'></textarea>";
 	html += "<button onclick='submitRecipe()'>Submit Recipe</button>";
 	return html;
