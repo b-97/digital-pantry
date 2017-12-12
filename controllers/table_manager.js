@@ -191,6 +191,7 @@ class db extends EventEmitter {
 					html += "<p>" + row.recipe_instructions + "</p>";
 					html += "</div>";
 					html += "</div>";
+					callback();
 				});
 				html += "</div>";
 				self.emit('db_get_recipes_table_success', html);
