@@ -100,7 +100,7 @@ class db extends EventEmitter {
 			"Ingredients WHERE recipe_id == '" +
 			rows[i].recipe_id + "';";
 		
-		var ingredient_names[];
+		var ingredient_names = [];
 			
 		con.query(sql_query, function(err, rows, fields) {
 			for (var i = 0; i < rows.length; i++) {
