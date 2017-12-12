@@ -167,12 +167,12 @@ class db extends EventEmitter {
 				var html = "";
 				html += "<div class='ui-grid-a'>";
 				async.each(rows, function(row, callback) {
-					if (i % 2 == 0) {
+					//if (i % 2 == 0) {
 						html += "<div class='ui-block-a'>";
-					}
-					else {
-						html += "<div class='ui-block-b'>";
-					}
+					//}
+					//else {
+					//	html += "<div class='ui-block-b'>";
+					//}
 					html += "<div class='ui-body ui-body-a'>";
 					html += "<h2>" + rows[i].recipe_name + "</h2>";
 					html += "<h4>Ingredients</h4>";
@@ -191,7 +191,6 @@ class db extends EventEmitter {
 					html += "<p>" + rows[i].recipe_instructions + "</p>";
 					html += "</div>";
 					html += "</div>";
-					callback();
 				});
 				html += "</div>";
 				self.emit('db_get_recipes_table_success', html);
