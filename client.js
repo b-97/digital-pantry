@@ -71,7 +71,7 @@ function addIngredient(){
 				document.getElementById("measurement_unit").value = "";
 				document.getElementById("quantity").value = ""; //clear textboxes
 			}
-			else{
+			else {
 				alert("Error submiting ingredients: " + msg); //alert user
 			}
 		},

@@ -45,8 +45,10 @@ class db extends EventEmitter {
 					console.log("Access Denied.");
 					self.emit('auth', false);
 				}
-				self.emit('auth', true);
-				console.log("Access Granted.");
+				else {
+					self.emit('auth', true);
+					console.log("Access Granted.");
+				}
 			}
 			else {
 				self.emit('auth', false);
@@ -55,14 +57,13 @@ class db extends EventEmitter {
 		});
 	}
 	/*
-		get_rows - takes a username and a table, and makes a request to the
-			mysql table asking for all rows where the username matches.
+		get_rows - takes an sql query, and makes a request to the
+			mysql table asking for all rows in the query.
 
 		Args:
-			user_name - string
-			table - string
+			sql_query - string
 		Emits:
-			db_get_rows_success - on success, return array of rows
+			db_get_rows_success - on success, return rows
 			db_get_rows_err - on failure, return string error message
 	*/
 	get_rows(sql_query) {
@@ -77,6 +78,39 @@ class db extends EventEmitter {
 			}
 		});
 	}
+	/*
+		get_row_count - takes a table and returns the number of rows in it
+
+		Args:
+			table - string
+		Emits:
+			db_get_row_count_success - on success, return rows length
+			db_get_row_count_error - on failure, return string error message
+	*/
+	get_row_count(table) {
+		var self = this;
+		var sql_query = "SELECT * FROM " + table + ";";
+		
+		con.query(sql_query, function(err, rows, fields) {
+			if (!err) {
+				self.emit('db_get_row_count_success', rows.length);
+			}
+			else {
+				self.emit('db_get_row_count_error', err);
+			}
+		});
+	}
+	/*
+		get_pantry_table - takes a username, and makes a request to the
+			mysql pantry table asking for all rows in the query, and
+			formats them into a table to be displayed on a page.
+
+		Args:
+			username - string
+		Emits:
+			db_get_pantry_table_success - on success, return html table string
+			db_get_pantry_table_error - on failure, return string error message
+	*/
 	get_pantry_table(username) {
 		var self = this;
 		var sql_query = "SELECT * FROM Pantry WHERE user_name = '" + username +
@@ -111,6 +145,17 @@ class db extends EventEmitter {
 			}
 		});
 	}
+	/*
+		get_recipes_table - takes a username, and makes a request to the
+			mysql recipes table asking for all rows in the query, and
+			formats them into a table to be displayed on a page.
+
+		Args:
+			username - string
+		Emits:
+			db_get_recipes_table_success - on success, return html table string
+			db_get_recipes_table_error - on failure, return string error message
+	*/
 	get_recipes_table(username) {
 		var self = this;
 		var sql_query = "SELECT * FROM Ingredients WHERE recipe_id = '" +
@@ -167,16 +212,19 @@ class db extends EventEmitter {
 		});
 	}
 	/*
-		get_pantry_ingredient_count
-			returns the count of a single ingredient in the pantry.
+		get_pantry_ingredient_count - returns the count of a single ingredient
+			in the pantry.
+			
 		Args:
 			username -	string
 			ingredient_name - string
+			
 		Emits:
 			pantry_ingredient_count - integer result
 			pantry_error - string error
 	*/
-	get_pantry_ingredient_count(username, ingredient_name){
+	// THIS MIGHT BE EXTRANEOUS??
+	/*get_pantry_ingredient_count(username, ingredient_name){
 		var count = "";
 		var self = this;
 		/*	implementation needed -
@@ -186,19 +234,19 @@ class db extends EventEmitter {
 				format of the result into an integer.
 		*/
 		self.emit('pantry_ingredient_count', count);
-	}
+	}*/
 	/*
-		modify_users_row - adds a user into the database.
+		add_user - adds a user to the Users table.
 		Args:
 			user_name - string
 			password - string
 			first_name - string
 			last_name - string
 		Emits:
-			db_users_add_fail - string if failed
-			db_users_add_success - string if succeeded
+			db_add_user_success - on success, return string success message
+			db_add_user_error - on failure, return string error message
 	*/
-	modify_users_row(user_name, password, first_name, last_name){
+	add_user(user_name, password, first_name, last_name) {
 		var self = this;
 		var sql_query = "INSERT INTO Users (user_name, password, first_name, " +
 			"last_name) VALUES ('" + user_name + "', '" + password  + "', '" +
@@ -246,7 +294,19 @@ class db extends EventEmitter {
 			}
 		});
 	}
-	modify_pantry_row(id, user_name, ingredient_name, measurement_unit, quantity) {
+	/*
+		add_pantry_item - adds an ingredient to the Pantry table.
+		Args:
+			id - string
+			user_name - string
+			ingredient_name - string
+			measurement_unit - string
+			quantity - string
+		Emits:
+			db_add_pantry_item_success - on success, return string success message
+			db_add_pantry_item_error - on failure, return string error message
+	*/
+	add_pantry_item(id, user_name, ingredient_name, measurement_unit, quantity) {
 		var self = this;
 		this.once('db_not_found', function(msg) {
 			var sql_query = "INSERT INTO Pantry (id, user_name, " +
@@ -257,22 +317,33 @@ class db extends EventEmitter {
 			con.query(sql_query, function(err, rows, fields) {
 				if (!err) {
 					console.log("Successfully added pantry item!");
-					self.emit('db_pantry_add_success', "Success");
+					self.emit('db_add_pantry_item_success', "Success");
 				}
 				else {
 					console.log(err);
-					self.emit('db_pantry_add_fail', err);
+					self.emit('db_add_pantry_item_error', err);
 				}
 			});
 		});
 		this.once('db_found', function(msg){
 			console.log(msg);
 			increment_pantry(user_name, ingredient_name, quantity);
-			self.emit('db_pantry_add_success', "Done");
+			self.emit('db_add_pantry_item_success', "Done");
 		});
 		self.check_membership("Pantry", "id = "+id);
 	}
-	modify_ingredients_row(recipe_id, ingredient_name, measurement_unit, quantity) {
+	/*
+		add_ingredient - adds an ingredient to the Ingredients table.
+		Args:
+			recipe_id - string
+			ingredient_name - string
+			measurement_unit - string
+			quantity - string
+		Emits:
+			db_add_ingredient_success - on success, return string success message
+			db_add_ingredient_error - on failure, return string error message
+	*/
+	add_ingredient(recipe_id, ingredient_name, measurement_unit, quantity) {
 		var self = this;
 		var sql_query = "INSERT INTO Ingredients (recipe_id, ingredient_name," +
 			" measurement_unit, quantity) VALUES ('" + recipe_id + "', '" +
@@ -281,14 +352,25 @@ class db extends EventEmitter {
 		
 		con.query(sql_query, function(err, rows, fields){
 			if (!err) {
-				self.emit('db_ingredient_add_success', "Success");
+				self.emit('db_add_ingredient_success', "Success");
 			}
 			else {
-				self.emit('db_ingredient_add_fail', err);
+				self.emit('db_add_ingredient_error', err);
 			}
 		});
 	}
-	modify_recipes_row(recipe_instructions, recipe_id, recipe_name, user_name){
+	/*
+		add_recipe - adds a recipe to the Recipes table.
+		Args:
+			recipe_instructions - string
+			recipe_id - string
+			recipe_name - string
+			user_name - string
+		Emits:
+			db_add_recipe_success - on success, return string success message
+			db_add_recipe_error - on failure, return string error message
+	*/
+	add_recipe(recipe_instructions, recipe_id, recipe_name, user_name) {
 		var self = this;
 		var sql_query = "INSERT INTO Recipe (recipe_instructions, recipe_id, " +
 			"recipe_name, user_name) VALUES ('" + recipe_instructions + "', '" +
@@ -296,39 +378,25 @@ class db extends EventEmitter {
 		
 		con.query(sql_query, function(err, rows, fields){
 			if (!err) {
-				self.emit('db_recipe_add_success', "Success");
+				self.emit('db_add_recipe_success', "Success");
 			}
 			else {
-				self.emit('db_recipe_add_fail', err);
-			}
-		});
-
-	}
-	row_count(table_name) {
-		var self = this;
-		var sql_query = "SELECT * FROM " + table_name + ";";
-		
-		con.query(sql_query, function(err, rows, fields) {
-			if (!err) {
-				console.log("Row count: " + rows.length);
-				self.emit('count_done', rows.length);
-			}
-			else {
-				console.log("Error with row count: " + sqlQ);
-				self.emit('count_done', 0);
+				self.emit('db_add_recipe_error', err);
 			}
 		});
 	}
-	add_recipe(recipe_name, ingredient_names, ingredient_counts, user_name, recipe_instructions) {
+	
+	// WILL HAVE TO BE RENAMED TO AVOID DUPLICATION
+	/*add_recipe(recipe_name, ingredient_names, ingredient_counts, user_name, recipe_instructions) {
 		//TODO: GET ROW COUNT FOR ROW ID
 		//TODO: FOR EACH INGREDIENT, GET THE MEASUREMENT UNIT
 		//		^ SHOULD HAVE SAME ORDER OF INGREDIENT_NAMES
-		modify_recipes_row(recipe_instructions, recipe_id, recipe_name, user_name);
+		add_recipe(recipe_instructions, recipe_id, recipe_name, user_name);
 		for (i = 0; i < ingredients.length; i++) {
 			increment_pantry(user_name, ingredients[i][0], (ingredients[i][2] * -1));
-			modify_ingredients_row(recipe_id, ingredients[i][0], ingredients[i][1], ingredients[i][2]);
+			add_ingredient(recipe_id, ingredients[i][0], ingredients[i][1], ingredients[i][2]);
 		}
-	}
+	}*/
 	increment_pantry(user_name, ingredient_name, quantity) {
 		var self = this;
 		var sql_query = "UPDATE Pantry SET quantity = quantity + " + quantity +

@@ -35,15 +35,16 @@ app.get('/logout', function (req, res) {
 	return res.redirect('/');
 });
 app.post('/create_account', function(req, res) {
-	db.once('db_users_add_success', function(msg) {
+	db.once('db_add_user_success', function(msg) {
 		console.log("Successfully created a new account.");
 		return res.send(msg);
 	});
-	db.once('db_users_add_fail', function(msg) {
+	db.once('db_add_user_error', function(msg) {
 		console.log("Failed to create a new account.");
 		return res.send(msg);
 	});
-	db.modify_users_row(req.body.username, req.body.password, req.body.first_name, req.body.last_name);
+	db.add_user(req.body.username, req.body.password, req.body.first_name,
+		req.body.last_name);
 });
 
 /*
@@ -129,17 +130,20 @@ app.get('/recipes_list', function(req, res) {
 	db.get_recipes_table(req.query.user_name);
 });
 
-app.get('/ingredient_add', function(req, res){
-	db.once('db_pantry_add_fail', function(msg){
+app.get('/ingredient_add', function(req, res) {
+	db.once('db_get_row_count_success', function(msg){
+		db.add_pantry_item(msg, req.query.user_name, req.query.ingredient_name, req.query.measurement_unit, req.query.quantity);
+	});
+	db.once('db_get_row_count_error', function(msg){
 		res.send([false, msg]);
 	});
-	db.once('db_pantry_add_success', function(msg){
+	db.once('db_add_pantry_item_success', function(msg){
 		res.send([true]);
 	});
-	db.once('count_done', function(msg){
-		db.modify_pantry_row(msg, req.query.user_name, req.query.ingredient_name, req.query.measurement_unit, req.query.quantity);
+	db.once('db_add_pantry_item_error', function(msg){
+		res.send([false, msg]);
 	});
-	db.row_count("Pantry");
+	db.get_row_count("Pantry");
 });
 app.post('/recipe_add', function(req, res){
 	db.once('db_adding_recipe_fail', function(msg){
