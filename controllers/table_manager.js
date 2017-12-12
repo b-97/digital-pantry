@@ -164,10 +164,12 @@ class db extends EventEmitter {
 		
 		con.query(sql_query, function(err, rows, fields) {
 			if (!err) {
+				console.log(rows);
 				var html = "";
 				html += "<div class='ui-grid-a'>";
 				async.each(rows, function(row, callback) {
 					//if (i % 2 == 0) {
+					console.log(row);
 						html += "<div class='ui-block-a'>";
 					//}
 					//else {
