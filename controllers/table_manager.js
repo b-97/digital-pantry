@@ -135,8 +135,20 @@ class db extends EventEmitter {
 							html += "<div class='ui-block-b'>";
 						}
 						html += "<div class='ui-body ui-body-a ui-corner-all'>";
-						html += "<h3>" + rows[i].recipe_name + "</h3>";
-						html += "<h4>" + rows[i].user_name + "</h4>";
+						html += "<h2>" + rows[i].recipe_name + "</h2>";
+						html += "<h3>" + rows[i].user_name + "</h3>";
+						html += "<h3>Ingredients:</h3>";
+						html += "<ul>";
+						var sql_query1 = "SELECT ingredient_name FROM " +
+							"Ingredients WHERE recipe_id = '" +
+							rows[i].recipe_id + "';";
+							
+						con.query(sql_query1, function(err1, rows1, fields1) {
+							for (var j = 0; j < rows1.length; j++) {
+								html += "<li>" + rows1[j].ingredient_name + "</li>";
+							}
+						}
+						html += "</ul>";
 						html += "<p>" + rows[i].recipe_instructions + "</p>";
 						html += "</div>";
 						html += "</div>";
