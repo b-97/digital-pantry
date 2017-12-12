@@ -180,6 +180,7 @@ class db extends EventEmitter {
 					var sql_query1 = "SELECT * FROM Ingredients WHERE recipe_id = '" +
 						row.recipe_id + "';";
 					con.query(sql_query1, function(err1, rows1, fields1) {
+						console.log(rows1);
 						for (var j = 0; j < rows1.length; j++) {
 							html += "<li>" + rows1[j].quantity + " " +
 							rows1[j].measurement_unit + " " +
