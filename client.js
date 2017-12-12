@@ -145,10 +145,40 @@ function createAccount() {
 	});
 }
 
+
 /*
 	submitRecipe - pulls the data from all of the fields available,
 		and submits it in recipe form to the server.
 */
 function submitRecipe() {
-	//todo: implementation.
+	var ingredients = [];
+	var ingredient_counts = [];
+	var recipe_name = document.getElementById("recipe_name").value;
+	var recipe_instructions = document.getElementById("recipe_instructions").value;
+	$('select').each(function(index, obj){
+		ingredients.push(obj.value);
+	});
+	console.log(ingredients);
+	$('input[id^="text_ingredient"]').each(function(index, obj){
+		ingredient_counts.push(obj.value);
+	});
+	var params = {
+		recipe_name: recipe_name,
+		ingredient_names: ingredients,
+		ingredient_counts: ingredient_counts,
+		user_name: data_user_name,
+		recipe_instructions: recipe_instructions
+	}
+	$.ajax({
+		type: "POST",
+		url: "./recipe_add",
+		dataType: "text",
+		data: params,
+		success: function(msg) {
+			alert("Recipe successfully submitted!");
+		},
+		error: function(jgXHR, textStatus, errorThrown){ //on failure
+			alert("Error creating account: " + textStatus + " " + errorThrown);
+		}
+	});
 }
