@@ -141,7 +141,7 @@ app.get('/ingredient_add', function(req, res){
 	});
 	db.row_count("Pantry");
 });
-app.get('/recipe_add', function(req, res){
+app.post('/recipe_add', function(req, res){
 	db.once('db_adding_recipe_fail', function(msg){
 		res.send(msg);
 	});
@@ -149,5 +149,5 @@ app.get('/recipe_add', function(req, res){
 		res.send(true);
 	});
 
-	db.add_recipe(req.query.recipe_instructions, req.query.recipe_id, req.query.recipe_name, req.query.user_name, req.query.ingredients);
+	db.add_recipe(req.query.recipe_name, req.query.ingredient_names, req.query.ingredient_counts, req.query.user_name, req.query.recipe_instructions);
 });
