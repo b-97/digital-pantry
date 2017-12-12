@@ -82,7 +82,7 @@ app.get('/create_recipe_page', function(req, res) {
 	db.once('db_get_rows_error', function(msg) {
 		res.send(msg);
 	});
-	db.get_rows("SELECT * FROM Pantry WHERE user_name = '" req.query.user_name + "';");
+	db.get_rows("SELECT * FROM Pantry WHERE user_name = '" + req.query.user_name + "';");
 });
 app.get('/get_pantry_rows', function(req, res) {
 	db.once('db_get_rows_success', function(msg) {
@@ -91,7 +91,7 @@ app.get('/get_pantry_rows', function(req, res) {
 	db.once('db_get_rows_error', function(msg) {
 		res.send(msg);
 	});
-	db.get_rows("SELECT * FROM Pantry WHERE user_name = '" req.query.user_name + "';");
+	db.get_rows("SELECT * FROM Pantry WHERE user_name = '" + req.query.user_name + "';");
 });
 
 /*	/panel_logged_in and /panel_logged_out send the data for the panel.
