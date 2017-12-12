@@ -187,13 +187,13 @@ class db extends EventEmitter {
 							rows1[j].measurement_unit + " " +
 							rows1[j].ingredient_name + "</li>";
 						}
+						html += "</ul>";
+						html += "<h4>Instructions</h4>";
+						html += "<p>" + row.recipe_instructions + "</p>";
+						html += "</div>";
+						html += "</div>";
 						callback();
 					});
-					html += "</ul>";
-					html += "<h4>Instructions</h4>";
-					html += "<p>" + row.recipe_instructions + "</p>";
-					html += "</div>";
-					html += "</div>";
 				},
 				function(err) {
 					if (!err) {
