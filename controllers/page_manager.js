@@ -45,7 +45,6 @@ function renderViewIngredientsPage() {
 	html += "<div id='display'>";
 	html += "<!-- To be populated by requestTable -->";
 	html += "</div>";
-	console.log(html);
 	return html;
 }
 
