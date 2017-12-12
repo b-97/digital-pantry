@@ -307,7 +307,7 @@ class db extends EventEmitter {
 	add_recipe(recipe_instructions, recipe_id, recipe_name, user_name, ingredients) {
 		modify_recipes_row(recipe_instructions, recipe_id, recipe_name, user_name);
 		for (i = 0; i < ingredients.length; i++) {
-			increment_pantry(user_name, ingredients[i][0], ingredients[i][2]);
+			increment_pantry(user_name, ingredients[i][0], (ingredients[i][2] * -1));
 			modify_ingredients_row(recipe_id, ingredients[i][0], ingredients[i][1], ingredients[i][2]);
 		}
 		self.emit('db_adding_recipe_success', "Hurray!");
