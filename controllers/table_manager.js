@@ -96,14 +96,18 @@ class db extends EventEmitter {
 	get_table(key_name, key, table) {
 		var self = this;
 		
-		var sql_query = "SELECT ingredient_name FROM " +
+		var sql_query = "SELECT * FROM " +
 			"Ingredients WHERE recipe_id = '12';";
 		
 		var ingredient_names = [];
+		var measurement_units = [];
+		var quantities = [];
 			
 		con.query(sql_query, function(err, rows, fields) {
 			for (var i = 0; i < rows.length; i++) {
 				ingredient_names[i] = rows[i].ingredient_name;
+				measurement_units[i] = rows[i].measurement_unit;
+				quantities[i] = rows[i].quantity;
 			}
 		});
 		
@@ -147,12 +151,13 @@ class db extends EventEmitter {
 							html += "<div class='ui-block-b'>";
 						}
 						html += "<div class='ui-body ui-body-a ui-corner-all'>";
-						html += "<h2>" + rows[i].recipe_name + "</h2>";
-						html += "<h3>" + rows[i].user_name + "</h3>";
-						html += "<h3>Ingredients:</h3>";
+						html += "<h1>" + rows[i].recipe_name + "</h1>";
+						html += "<h2>Ingredients:</h2>";
 						html += "<ul>";
 						for (var j = 0; j < ingredient_names.length; j++) {
-							html += "<li>" + ingredient_names[j] + "</li>";
+							html += "<li>" + quantities[j] + " " +
+								measurement_units[j] + " " + ingredient_names[j]
+								+ "</li>";
 						}
 						html += "</ul>";
 						html += "<p>" + rows[i].recipe_instructions + "</p>";
