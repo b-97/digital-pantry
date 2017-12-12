@@ -57,7 +57,9 @@ function addIngredient(){
 		measurement_unit: unit,
 		quantity: quant
 	};
-
+	console.log(name);
+	console.log(unit);
+	console.log(quant);
 	$.ajax({
 		type: "GET",
 		url: "./ingredient_add",
@@ -137,9 +139,8 @@ function createAccount() {
 		data: params,
 		//on success, log in and alert the user.
 		success: function(msg) {
-			alert("succeeded");
+			alert("Able to create an account!");
 			login();
-			alert("succeeded2");
 		},
 		error: function(jgXHR, textStatus, errorThrown){ //on failure
 			alert("Error creating account: " + textStatus + " " + errorThrown);

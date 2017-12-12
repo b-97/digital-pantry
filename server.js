@@ -130,7 +130,7 @@ app.get('/recipes_list', function(req, res) {
 
 app.get('/ingredient_add', function(req, res) {
 	db.once('db_get_row_count_success', function(msg){
-		db.add_pantry_item(msg, req.query.user_name, req.query.ingredient_name, req.query.measurement_unit, req.query.quantity);
+		db.add_pantry_item(msg+1, req.query.user_name, req.query.ingredient_name, req.query.measurement_unit, req.query.quantity);
 	});
 	db.once('db_get_row_count_error', function(msg){
 		res.send([false, msg]);
@@ -144,23 +144,39 @@ app.get('/ingredient_add', function(req, res) {
 	db.get_row_count("Pantry");
 });
 app.post('/recipe_add', function(req, res){
+	console.log(req.query.ingredient_names);
+	console.log(req.query.measurement_units);
+	console.log(req.query.ingredient_counts);
 	db.once('db_get_rows_success', function(msg){
-		db.once('db_adding_recipe_fail', function(msg){
-			res.send(msg);
-		});
-		db.once('db_adding_recipe_success', function(msg){
-			res.send(true);
+		db.once('db_get_row_count_success', function(msg1){
+			db.once('db_add_recipe_error', function(msg2){
+				console.log(msg2);
+				res.send(msg2);
+			});
+			db.once('db_add_recipe_success', function(msg2){
+				res.send(true);
+			});
+	
+			var measurement_units = [];
+			
+			for (var i = 0; i < msg.length; i++)
+			{
+				if (req.query.ingredients.includes(msg[i].ingredient_name))
+				{
+					measurement_units.push(msg[i].quantity);
+				}
+			}
+			//console.log();
+			db.add_recipe(msg1, req.query.recipe_name, req.query.ingredient_names, measurement_units, req.query.ingredient_counts, req.query.user_name, req.query.recipe_instructions);
 		});
 
-		var ingredient_counts = [];
-		
-		//for (i = 0; i < 
-	
-		db.add_recipe(req.query.recipe_name, req.query.ingredient_names, ingredient_counts, req.query.user_name, req.query.recipe_instructions);
+		db.get_row_count("Recipes");
 	});
 	db.once('db_get_rows_error', function(msg){
-		res.sen(msg);
+		res.send(msg);
 	});
 
-	db.get_rows(slqQ);
+	var sqlQ = "SELECT * FROM Pantry WHERE user_name = '" + req.query.user_name + "';";
+
+	db.get_rows(sqlQ);
 });
