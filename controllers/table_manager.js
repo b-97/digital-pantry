@@ -128,7 +128,7 @@ class db extends EventEmitter {
 			}
 		});
 		
-		sql_query = "SELECT * FROM Recipe WHERE user_name = '" + username +
+		sql_query = "SELECT * FROM Recipes WHERE user_name = '" + username +
 			"';";
 		
 		con.query(sql_query, function(err, rows, fields) {
