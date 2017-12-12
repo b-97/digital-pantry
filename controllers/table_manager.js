@@ -179,19 +179,19 @@ class db extends EventEmitter {
 					html += "<ul>";
 					var sql_query1 = "SELECT * FROM Ingredients WHERE recipe_id = '" +
 						row.recipe_id + "';";
-					con.query(sql_query, function(err1, rows1, fields1) {
+					con.query(sql_query1, function(err1, rows1, fields1) {
 						for (var j = 0; j < rows1.length; j++) {
 							html += "<li>" + rows1[j].quantity + " " +
 							rows1[j].measurement_unit + " " +
 							rows1[j].ingredient_name + "</li>";
 						}
+						callback();
 					});
 					html += "</ul>";
 					html += "<h4>Instructions</h4>";
 					html += "<p>" + row.recipe_instructions + "</p>";
 					html += "</div>";
 					html += "</div>";
-					callback();
 				},
 				function(err) {
 					if (!err) {
