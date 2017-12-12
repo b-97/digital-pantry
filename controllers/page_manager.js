@@ -86,13 +86,13 @@ function renderCreateRecipePage(ingredients_quantity, rows) {
 		html += "<select id='ingredient_choice_" + i + "'>";
 		html += "<optgroup label='Select an Ingredient'>";
 		for (var j = 0; j < rows.length; j++) {
-			html += "<option id='ingredient_" + i + "_" + j + "' value='" + rows[j].ingredient_name + "'>" + rows[j].ingredient_name + "</option>";
+			html += "<option id='select_ingredient_" + i + "_" + j + "' value='" + rows[j].ingredient_name + "'>" + rows[j].ingredient_name + "</option>";
 		}
 		html += "</optgroup>";
 		html += "</select>";
 		html += "</div>";
 		html += "<div class='ui-block-b'>";
-		html += "<input type='text' id='ingredient_" + i + "_quantity' placeholder='Enter quantity'>";
+		html += "<input type='text' id='text_ingredient_" + i + "_quantity' placeholder='Enter quantity'>";
 		html += "</div>";
 	}
 	html += "</fieldset>";
