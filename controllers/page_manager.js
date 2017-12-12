@@ -83,13 +83,13 @@ function renderCreateRecipePage(ingredients_quantity, rows) {
 	html += "<input type='text' id='recipe_name' placeholder='Enter the recipe name'>";
 	for (var i = 0; i < ingredients_quantity; i++) {
 		html += "<select id='ingredient_choice_" + i + "'>";
-		html += "<optgroup label='Select an Ingredient'>";
+		html += "<optgroup class='ui-block-a' label='Select an Ingredient'>";
 		console.log("In page_manager: " + rows);
 		for (var j = 0; j < rows.length; j++) {
 			html += "<option id='ingredient_" + i + "_" + j + "' value='" + rows[j].ingredient_name + "'>" + rows[j].ingredient_name + "</option>";
 		}
 		html += "</select>";
-		html += "<input type='text' id='quant" + i + "' placeholder='Enter quantity'></input>";
+		html += "<input class='ui-block-b' type='text' id='quant" + i + "' placeholder='Enter quantity'></input>";
 	}
 	html += "<textarea id='recipe_instructions' placeholder='Enter recipe instructions here'></textarea>";
 	html += "<button onclick='submitRecipe()'>Submit Recipe</button>";
