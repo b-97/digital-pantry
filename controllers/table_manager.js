@@ -192,9 +192,16 @@ class db extends EventEmitter {
 					html += "<p>" + row.recipe_instructions + "</p>";
 					html += "</div>";
 					html += "</div>";
+				},
+				function(err) {
+					if (!err) {
+						html += "</div>";
+						self.emit('db_get_recipes_table_success', html);
+					}
+					else {
+						self.emit('db_get_recipes_table_error', err);
+					}
 				});
-				html += "</div>";
-				self.emit('db_get_recipes_table_success', html);
 			}
 			else {
 				console.log('Error making SQL request for Recipes table');
