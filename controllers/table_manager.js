@@ -77,100 +77,6 @@ class db extends EventEmitter {
 			}
 		});
 	}
-	/*
-		get_table - takes a key, key name and table, and makes a request to the
-			mysql table asking for all rows where the username matches.
-			Returns an html-formatted table or div on success, 
-				an error message on failure.
-		Args:
-			key_name - string
-			key - string
-			table - string
-		Emits:
-			db_get_response_success - on success, return html-formatted table
-			db_get_response_error - on failure, return string error message
-	*/
-	/*get_table(key_name, key, table) {
-		var self = this;
-		
-		var sql_query = "SELECT * FROM " +
-			"Ingredients WHERE recipe_id = '12';";
-		
-		var ingredient_names = [];
-		var measurement_units = [];
-		var quantities = [];
-			
-		con.query(sql_query, function(err, rows, fields) {
-			for (var i = 0; i < rows.length; i++) {
-				ingredient_names[i] = rows[i].ingredient_name;
-				measurement_units[i] = rows[i].measurement_unit;
-				quantities[i] = rows[i].quantity;
-			}
-		});
-		
-		sql_query = "SELECT * FROM " + table + " WHERE " + key_name +
-			" = '" + key + "';";
-		
-		con.query(sql_query, function(err, rows, fields) {
-			if (!err) {
-				//render the Pantry table
-				/*if (table == "Pantry") {
-					var html = "";
-					html += "<table data-role='table' id='display_table'" +
-						"data-mode='reflow' class='ui-responsive'>";
-					html += "<thead>";
-					html += "<tr>";
-					html += "<th>Ingredient Name</th>";
-					html += "<th>Measurement Unit</th>";
-					html += "<th>Quantity</th>";
-					html += "</tr>";
-					html += "</thead>";
-					html += "<tbody>";
-					for (var i = 0; i < rows.length; i++) {
-						html += "<tr>";
-						html += "<td>" + rows[i].ingredient_name + "</td>";
-						html += "<td>" + rows[i].measurement_unit + "</td>";
-						html += "<td>" + rows[i].quantity.toString() + "</td>";
-						html += "</tr>";
-					}
-					html += "</tbody>";
-					html += "</table>";
-				}
-				//render the Recipes table
-				else if (table == "Recipes") {
-					var html = "";
-					html += "<div class='ui-grid-a'>";
-					for (var i = 0; i < rows.length; i++) {
-						if (i % 2 == 0) {
-							html += "<div class='ui-block-a'>";
-						}
-						else {
-							html += "<div class='ui-block-b'>";
-						}
-						html += "<div class='ui-body ui-body-a ui-corner-all'>";
-						html += "<h1>" + rows[i].recipe_name + "</h1>";
-						html += "<h2>Ingredients:</h2>";
-						html += "<ul>";
-						for (var j = 0; j < ingredient_names.length; j++) {
-							html += "<li>" + quantities[j] + " " +
-								measurement_units[j] + " " + ingredient_names[j]
-								+ "</li>";
-						}
-						html += "</ul>";
-						html += "<p>" + rows[i].recipe_instructions + "</p>";
-						html += "</div>";
-						html += "</div>";
-					}
-					html += "</div>";
-				}
-				self.emit('db_get_response_success', html); //emit once done
-			}
-			else {
-				console.log('Error making SQL request: ' + sql_string);
-				self.emit('db_get_response_error', err);	//emit error message
-			}
-		});
-	}*/
 	get_pantry_table(username) {
 		var self = this;
 		var sql_query = "SELECT * FROM Pantry WHERE user_name = '" + username +
@@ -203,7 +109,8 @@ class db extends EventEmitter {
 				console.log('Error making SQL request for Pantry table');
 				self.emit('db_get_pantry_table_error', err);	//emit error
 			}
-	});
+		});
+	}
 	get_recipes_table(username) {
 		var self = this;
 		var sql_query = "SELECT * FROM Ingredients WHERE recipe_id = '" +
@@ -250,13 +157,13 @@ class db extends EventEmitter {
 					html += "</div>";
 				}
 				html += "</div>";
-			}
-			self.emit('db_get_recipes_table_success', html); //emit once done
+				self.emit('db_get_recipes_table_success', html); //emit once done
 			}
 			else {
 				console.log('Error making SQL request for Recipes table');
 				self.emit('db_get_recipes_table_error', err);	//emit error
 			}
+		});
 	}
 	/*
 		get_pantry_ingredient_count
