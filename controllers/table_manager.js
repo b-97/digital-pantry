@@ -11,7 +11,7 @@ var con = mysql.createConnection({
 });
 
 con.connect(function(err) {
-	if !(err) {
+	if (!err) {
 		console.log("Database successfully connected");
 	}
 	else {
@@ -190,7 +190,7 @@ class db extends EventEmitter {
 			first_name + "', '" + last_name + "');";
 		
 		con.query(sql_query, function(err, rows, fields) {
-			if !(err) {
+			if (!err) {
 				self.emit('db_users_add_success', "Success");
 			}
 			else {
@@ -218,7 +218,7 @@ class db extends EventEmitter {
 		sql_query += ";";
 
 		con.query(sql_query, function(err, rows, fields){
-			if !(err) {
+			if (!err) {
 				if (rows.length == 0) {
 					self.emit('db_not_found', "Nothing there");
 				}
@@ -240,7 +240,7 @@ class db extends EventEmitter {
 				measurement_unit + "', " + quantity + ");";
 			
 			con.query(sql_query, function(err, rows, fields) {
-				if !(err) {
+				if (!err) {
 					console.log("Successfully added pantry item!");
 					self.emit('db_pantry_add_success', "Success");
 				}
@@ -265,7 +265,7 @@ class db extends EventEmitter {
 			");";
 		
 		con.query(sql_query, function(err, rows, fields){
-			if !(err) {
+			if (!err) {
 				self.emit('db_ingredient_add_success', "Success");
 			}
 			else {
@@ -280,7 +280,7 @@ class db extends EventEmitter {
 			recipe_id + "', '" + recipe_name + "', '" + user_name + "');";
 		
 		con.query(sql_query, function(err, rows, fields){
-			if !(err) {
+			if (!err) {
 				self.emit('db_recipe_add_success', "Success");
 			}
 			else {
@@ -294,7 +294,7 @@ class db extends EventEmitter {
 		var sql_query = "SELECT * FROM " + table_name + ";";
 		
 		con.query(sql_query, function(err, rows, fields) {
-			if !(err) {
+			if (!err) {
 				console.log("Row count: " + rows.length);
 				self.emit('count_done', rows.length);
 			}
@@ -318,7 +318,7 @@ class db extends EventEmitter {
 			" WHERE user_name = '" + user_name + "';";
 		
 		con.query(sql_query, function(err, rows, fields) {
-			if !(err) {
+			if (!err) {
 				self.emit('db_pantry_increment_success', "Jolly good!");
 			}
 			else {
