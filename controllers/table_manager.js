@@ -178,7 +178,7 @@ class db extends EventEmitter {
 					html += "<h4>Ingredients</h4>";
 					html += "<ul>";
 					var sql_query1 = "SELECT * FROM Ingredients WHERE recipe_id = '" +
-						row.recipe_id + "';"
+						row.recipe_id + "';";
 					con.query(sql_query, function(err1, rows1, fields1) {
 						for (var j = 0; j < rows1.length; j++) {
 							html += "<li>" + rows1[j].quantity + " " +
