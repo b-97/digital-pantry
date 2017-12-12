@@ -142,9 +142,9 @@ class db extends EventEmitter {
 					else {
 						html += "<div class='ui-block-b'>";
 					}
-					html += "<div class='ui-body ui-body-a ui-corner-all'>";
-					html += "<h1>" + rows[i].recipe_name + "</h1>";
-					html += "<h2>Ingredients:</h2>";
+					html += "<div class='ui-body ui-body-d'>";
+					html += "<h2>" + rows[i].recipe_name + "</h2>";
+					html += "<h4>Ingredients</h4>";
 					html += "<ul>";
 					for (var j = 0; j < ingredient_names.length; j++) {
 						html += "<li>" + quantities[j] + " " +
@@ -152,6 +152,7 @@ class db extends EventEmitter {
 							+ "</li>";
 					}
 					html += "</ul>";
+					html += "<h4>Instructions</h4>";
 					html += "<p>" + rows[i].recipe_instructions + "</p>";
 					html += "</div>";
 					html += "</div>";
