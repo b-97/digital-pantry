@@ -110,7 +110,7 @@ function renderPanelLoggedIn() {
 	html += "<li data-icon='false'><a onclick=\"requestPageContent('/view_ingredients_page', 'page-body', null)\">View Ingredients</a></li>";
 	html += "<li data-icon='false'><a onclick=\"requestPageContent('/add_ingredients_page', 'page-body', null)\">Add Ingredients</a></li>";
 	html += "<li data-icon='false'><a onclick=\"requestPageContent('/view_recipes_page', 'page-body', null)\">View Recipes</a></li>";
-	html += "<li data-icon='false'><a onclick=\"requestPageContent('/add_recipes_page', 'page-body', null)\">Add a Recipe</a></li>";
+	html += "<li data-icon='false'><a onclick=\"requestPageContent('/ingredients_quantity_page', 'page-body', null)\">Add a Recipe</a></li>";
 	html += "</ul>";
 	return html;
 }
