@@ -2,6 +2,7 @@
 
 var EventEmitter = require('events').EventEmitter;
 var mysql = require('mysql');
+var async = require('async');
 
 var con = mysql.createConnection({
 	host:'localhost',
@@ -165,7 +166,7 @@ class db extends EventEmitter {
 			if (!err) {
 				var html = "";
 				html += "<div class='ui-grid-a'>";
-				for (var i = 0; i < rows.length; i++) {
+				async.each(rows, function(row, callback) {
 					if (i % 2 == 0) {
 						html += "<div class='ui-block-a'>";
 					}
@@ -190,7 +191,8 @@ class db extends EventEmitter {
 					html += "<p>" + rows[i].recipe_instructions + "</p>";
 					html += "</div>";
 					html += "</div>";
-				}
+					callback();
+				});
 				html += "</div>";
 				self.emit('db_get_recipes_table_success', html);
 			}
