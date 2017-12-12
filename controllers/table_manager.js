@@ -140,7 +140,7 @@ class db extends EventEmitter {
 						html += "<h3>Ingredients:</h3>";
 						html += "<ul>";
 						var sql_query1 = "SELECT ingredient_name FROM " +
-							"Ingredients WHERE recipe_id = '" +
+							"Ingredients WHERE recipe_id == '" +
 							rows[i].recipe_id + "';";
 							
 						con.query(sql_query1, function(err1, rows1, fields1) {
@@ -316,7 +316,7 @@ class db extends EventEmitter {
 			}
 		});
 	}
-	add_recipe(recipe_instructions, recipe_id, recipe_name, user_name, ingredients) {
+	add_recipe(recipe_name, ingredient_names, ingredient_counts, user_name, recipe_instructions) {
 		modify_recipes_row(recipe_instructions, recipe_id, recipe_name, user_name);
 		for (i = 0; i < ingredients.length; i++) {
 			increment_pantry(user_name, ingredients[i][0], (ingredients[i][2] * -1));
