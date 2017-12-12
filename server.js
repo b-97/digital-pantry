@@ -82,7 +82,7 @@ app.get('/create_recipe_page', function(req, res) {
 	db.once('db_get_rows_error', function(msg) {
 		res.send(msg);
 	});
-	db.get_rows(req.query.user_name, 'Pantry');
+	db.get_rows("SELECT * FROM Pantry WHERE user_name = " req.query.user_name + ";");
 });
 app.get('/get_pantry_rows', function(req, res) {
 	db.once('db_get_rows_success', function(msg) {
@@ -91,7 +91,7 @@ app.get('/get_pantry_rows', function(req, res) {
 	db.once('db_get_rows_error', function(msg) {
 		res.send(msg);
 	});
-	db.get_rows(req.query.user_name, 'Pantry');
+	db.get_rows("SELECT * FROM Pantry WHERE user_name = " req.query.user_name + ";");
 });
 
 /*	/panel_logged_in and /panel_logged_out send the data for the panel.
@@ -105,28 +105,28 @@ app.get('/panel_logged_out', function(req, res) {
 
 // pantry_table sends the full table for a particular user.
 app.get('/pantry_table', function(req, res) {
-	db.once('db_get_response_success', function(msg) {
+	db.once('db_get_pantry_table_success', function(msg) {
 		res.send(msg);
 		console.log("successful request!");
 	});
-	db.once('db_get_response_error', function(msg) {
+	db.once('db_get_pantry_table_error', function(msg) {
 		res.send(msg);
 		console.log("we borked :(");
 	});
-	db.get_table('user_name', req.query.user_name, 'Pantry');
+	db.get_pantry_table(req.query.user_name);
 });
 
 // recipes_table sends the full list of recipes.
 app.get('/recipes_list', function(req, res) {
-	db.once('db_get_response_success', function(msg) {
+	db.once('db_get_recipes_table_success', function(msg) {
 		res.send(msg);
 		console.log("successful request!");
 	});
-	db.once('db_get_response_error', function(msg) {
+	db.once('db_get_recipes_table_error', function(msg) {
 		res.send(msg);
 		console.log("we borked :(");
 	});
-	db.get_table('user_name', req.query.user_name, 'Recipes');
+	db.get_recipes_table(req.query.user_name);
 });
 
 app.get('/ingredient_add', function(req, res){

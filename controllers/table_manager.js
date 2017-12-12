@@ -40,17 +40,17 @@ class db extends EventEmitter {
 			username + "' && password = '" + password + "';";
 
 		con.query(sql_query, function(err, rows, field) {
-			if (err) {
-				self.emit('auth', false);
-				console.log("error in connection query");
-			}
-			else {
+			if (!err) {
 				if (rows.length == 0) {			//if no result, it failed
 					console.log("Access Denied.");
 					self.emit('auth', false);
 				}
 				self.emit('auth', true);
 				console.log("Access Granted.");
+			}
+			else {
+				self.emit('auth', false);
+				console.log("error in connection query");
 			}
 		});
 	}
@@ -65,11 +65,8 @@ class db extends EventEmitter {
 			db_get_rows_success - on success, return array of rows
 			db_get_rows_err - on failure, return string error message
 	*/
-	get_rows(user_name, table) {
+	get_rows(sql_query) {
 		var self = this;
-		var sql_query = "SELECT * FROM " + table + " WHERE user_name = '" +
-		user_name + "';";
-		
 		con.query(sql_query, function(err, rows, fields) {
 			if (!err) {
 				self.emit('db_get_rows_success', rows);
@@ -93,7 +90,7 @@ class db extends EventEmitter {
 			db_get_response_success - on success, return html-formatted table
 			db_get_response_error - on failure, return string error message
 	*/
-	get_table(key_name, key, table) {
+	/*get_table(key_name, key, table) {
 		var self = this;
 		
 		var sql_query = "SELECT * FROM " +
@@ -117,7 +114,7 @@ class db extends EventEmitter {
 		con.query(sql_query, function(err, rows, fields) {
 			if (!err) {
 				//render the Pantry table
-				if (table == "Pantry") {
+				/*if (table == "Pantry") {
 					var html = "";
 					html += "<table data-role='table' id='display_table'" +
 						"data-mode='reflow' class='ui-responsive'>";
@@ -173,6 +170,93 @@ class db extends EventEmitter {
 				self.emit('db_get_response_error', err);	//emit error message
 			}
 		});
+	}*/
+	get_pantry_table(username) {
+		var self = this;
+		var sql_query = "SELECT * FROM Pantry WHERE user_name = '" + username +
+			"';";
+		con.query(sql_query, function(err, rows, fields) {
+			if (!err) {
+				var html = "";
+				html += "<table data-role='table' id='display_table'" +
+					"data-mode='reflow' class='ui-responsive'>";
+				html += "<thead>";
+				html += "<tr>";
+				html += "<th>Ingredient Name</th>";
+				html += "<th>Measurement Unit</th>";
+				html += "<th>Quantity</th>";
+				html += "</tr>";
+				html += "</thead>";
+				html += "<tbody>";
+				for (var i = 0; i < rows.length; i++) {
+					html += "<tr>";
+					html += "<td>" + rows[i].ingredient_name + "</td>";
+					html += "<td>" + rows[i].measurement_unit + "</td>";
+					html += "<td>" + rows[i].quantity.toString() + "</td>";
+					html += "</tr>";
+				}
+				html += "</tbody>";
+				html += "</table>";
+				self.emit('db_get_pantry_table_success', html); //emit once done
+			}
+			else {
+				console.log('Error making SQL request for Pantry table');
+				self.emit('db_get_pantry_table_error', err);	//emit error
+			}
+	});
+	get_recipes_table(username) {
+		var self = this;
+		var sql_query = "SELECT * FROM Ingredients WHERE recipe_id = '" +
+			12 + "';";
+		
+		var ingredient_names = [];
+		var measurement_units = [];
+		var quantities = [];
+			
+		con.query(sql_query, function(err, rows, fields) {
+			for (var i = 0; i < rows.length; i++) {
+				ingredient_names[i] = rows[i].ingredient_name;
+				measurement_units[i] = rows[i].measurement_unit;
+				quantities[i] = rows[i].quantity;
+			}
+		});
+		
+		sql_query = "SELECT * FROM Pantry WHERE user_name = '" + username +
+			"';";
+		
+		con.query(sql_query, function(err, rows, fields) {
+			if (!err) {
+				var html = "";
+				html += "<div class='ui-grid-a'>";
+				for (var i = 0; i < rows.length; i++) {
+					if (i % 2 == 0) {
+						html += "<div class='ui-block-a'>";
+					}
+					else {
+						html += "<div class='ui-block-b'>";
+					}
+					html += "<div class='ui-body ui-body-a ui-corner-all'>";
+					html += "<h1>" + rows[i].recipe_name + "</h1>";
+					html += "<h2>Ingredients:</h2>";
+					html += "<ul>";
+					for (var j = 0; j < ingredient_names.length; j++) {
+						html += "<li>" + quantities[j] + " " +
+							measurement_units[j] + " " + ingredient_names[j]
+							+ "</li>";
+					}
+					html += "</ul>";
+					html += "<p>" + rows[i].recipe_instructions + "</p>";
+					html += "</div>";
+					html += "</div>";
+				}
+				html += "</div>";
+			}
+			self.emit('db_get_recipes_table_success', html); //emit once done
+			}
+			else {
+				console.log('Error making SQL request for Recipes table');
+				self.emit('db_get_recipes_table_error', err);	//emit error
+			}
 	}
 	/*
 		get_pantry_ingredient_count
