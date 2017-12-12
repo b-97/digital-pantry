@@ -180,26 +180,21 @@ class db extends EventEmitter {
 					var sql_query1 = "SELECT * FROM Ingredients WHERE recipe_id = '" +
 						row.recipe_id + "';"
 					con.query(sql_query, function(err1, rows1, fields1) {
-						async.each(rows1, function(row1, callback1) {
-							html += "<li>" + rows1.quantity + " " +
-							rows1.measurement_unit + " " +
-							rows1.ingredient_name + "</li>";
-							callback1();
-						},
-						function(err) {
-							if (!err) {
-								html += "</ul>";
-								html += "<h4>Instructions</h4>";
-								html += "<p>" + row.recipe_instructions + "</p>";
-								html += "</div>";
-								html += "</div>";
-								callback();
-							}
-						});
+						for (var j = 0; j < rows1.length; j++) {
+							html += "<li>" + rows1[j].quantity + " " +
+							rows1[j].measurement_unit + " " +
+							rows1[j].ingredient_name + "</li>";
+						}
 					});
+					callback();
 				},
 				function(err) {
 					if (!err) {
+						html += "</ul>";
+						html += "<h4>Instructions</h4>";
+						html += "<p>" + row.recipe_instructions + "</p>";
+						html += "</div>";
+						html += "</div>";
 						html += "</div>";
 						self.emit('db_get_recipes_table_success', html);
 					}
