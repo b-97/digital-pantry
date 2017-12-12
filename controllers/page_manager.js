@@ -93,7 +93,7 @@ function renderCreateRecipePage(ingredients_quantity, rows) {
 		html += "</select>";
 		html += "</div>";
 		html += "<div class='ui-block-b'>";
-		html += "<input class='ui-block-b' type='text' id='quant" + i + "' placeholder='Enter quantity'>";
+		html += "<input type='text' id='ingredient_" + i + "_quantity' placeholder='Enter quantity'>";
 		html += "</div>";
 	}
 	html += "</fieldset>";
