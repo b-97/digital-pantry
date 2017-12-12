@@ -147,7 +147,7 @@ class db extends EventEmitter {
 							for (var j = 0; j < rows1.length; j++) {
 								html += "<li>" + rows1[j].ingredient_name + "</li>";
 							}
-						}
+						});
 						html += "</ul>";
 						html += "<p>" + rows[i].recipe_instructions + "</p>";
 						html += "</div>";
