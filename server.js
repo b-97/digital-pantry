@@ -56,7 +56,7 @@ app.get('/welcome_page', function(req, res) {
 	res.send(page_manager.renderWelcomePage());
 });
 app.get('/login_page', function(req, res) {
-	res.send(page_manager.renderLoginPage());
+	return res.send(page_manager.renderLoginPage());
 });
 app.get('/create_account_page', function(req, res) {
 	res.send(page_manager.renderCreateAccountPage());
