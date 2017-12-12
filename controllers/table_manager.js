@@ -95,7 +95,21 @@ class db extends EventEmitter {
 	*/
 	get_table(key_name, key, table) {
 		var self = this;
-		var sql_query = "SELECT * FROM " + table + " WHERE " + key_name +
+		
+		var sql_query = "SELECT ingredient_name FROM " +
+			"Ingredients WHERE recipe_id == '" +
+			rows[i].recipe_id + "';";
+		
+		var ingredient_names[];
+			
+		con.query(sql_query, function(err, rows, fields) {
+			for (var i = 0; i < rows.length; i++) {
+				ingredient_names[i] = rows[j].ingredient_name;
+				console.log("Ingredient " + i + ": " + ingredient_names[i]);
+			}
+		});
+		
+		sql_query = "SELECT * FROM " + table + " WHERE " + key_name +
 			" = '" + key + "';";
 		
 		con.query(sql_query, function(err, rows, fields) {
@@ -139,15 +153,7 @@ class db extends EventEmitter {
 						html += "<h3>" + rows[i].user_name + "</h3>";
 						html += "<h3>Ingredients:</h3>";
 						html += "<ul>";
-						var sql_query1 = "SELECT ingredient_name FROM " +
-							"Ingredients WHERE recipe_id == '" +
-							rows[i].recipe_id + "';";
-							
-						con.query(sql_query1, function(err1, rows1, fields1) {
-							for (var j = 0; j < rows1.length; j++) {
-								html += "<li>" + rows1[j].ingredient_name + "</li>";
-							}
-						});
+						
 						html += "</ul>";
 						html += "<p>" + rows[i].recipe_instructions + "</p>";
 						html += "</div>";
