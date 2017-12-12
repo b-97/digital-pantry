@@ -137,7 +137,9 @@ function createAccount() {
 		data: params,
 		//on success, log in and alert the user.
 		success: function(msg) {
+			alert("succeeded");
 			login();
+			alert("succeeded2");
 		},
 		error: function(jgXHR, textStatus, errorThrown){ //on failure
 			alert("Error creating account: " + textStatus + " " + errorThrown);

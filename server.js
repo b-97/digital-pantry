@@ -37,11 +37,11 @@ app.get('/logout', function (req, res) {
 app.post('/create_account', function(req, res) {
 	db.once('db_add_user_success', function(msg) {
 		console.log("Successfully created a new account.");
-		return res.send(msg);
+		res.send("Successfully logged in.");
 	});
 	db.once('db_add_user_error', function(msg) {
 		console.log("Failed to create a new account.");
-		return res.send(msg);
+		res.send("Failed to log in");
 	});
 	db.add_user(req.body.username, req.body.password, req.body.first_name,
 		req.body.last_name);
@@ -56,7 +56,7 @@ app.get('/welcome_page', function(req, res) {
 	res.send(page_manager.renderWelcomePage());
 });
 app.get('/login_page', function(req, res) {
-	return res.send(page_manager.renderLoginPage());
+	res.send(page_manager.renderLoginPage());
 });
 app.get('/create_account_page', function(req, res) {
 	res.send(page_manager.renderCreateAccountPage());
@@ -144,12 +144,23 @@ app.get('/ingredient_add', function(req, res) {
 	db.get_row_count("Pantry");
 });
 app.post('/recipe_add', function(req, res){
-	db.once('db_adding_recipe_fail', function(msg){
-		res.send(msg);
+	db.once('db_get_rows_success', function(msg){
+		db.once('db_adding_recipe_fail', function(msg){
+			res.send(msg);
+		});
+		db.once('db_adding_recipe_success', function(msg){
+			res.send(true);
+		});
+
+		var ingredient_counts = [];
+		
+		//for (i = 0; i < 
+	
+		db.add_recipe(req.query.recipe_name, req.query.ingredient_names, ingredient_counts, req.query.user_name, req.query.recipe_instructions);
 	});
-	db.once('db_adding_recipe_success', function(req, res){
-		res.send(true);
+	db.once('db_get_rows_error', function(msg){
+		res.sen(msg);
 	});
 
-	db.add_recipe(req.query.recipe_name, req.query.ingredient_names, req.query.ingredient_counts, req.query.user_name, req.query.recipe_instructions);
+	db.get_rows(slqQ);
 });

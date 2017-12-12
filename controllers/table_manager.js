@@ -270,10 +270,10 @@ class db extends EventEmitter {
 		
 		con.query(sql_query, function(err, rows, fields) {
 			if (!err) {
-				self.emit('db_users_add_success', "Success");
+				self.emit('db_add_user_success', "Success");
 			}
 			else {
-				self.emit('db_users_add_fail', err);
+				self.emit('db_add_user_error', err);
 			}
 		});
 	}
@@ -386,7 +386,7 @@ class db extends EventEmitter {
 			db_add_recipe_success - on success, return string success message
 			db_add_recipe_error - on failure, return string error message
 	*/
-	add_recipe(recipe_instructions, recipe_id, recipe_name, user_name) {
+	add_recipe(recipe_id, recipe_name, ingredient_names, measurement_units, ingredient_counts, user_name, recipe_instructions) {
 		var self = this;
 		var sql_query = "INSERT INTO Recipe (recipe_instructions, recipe_id, " +
 			"recipe_name, user_name) VALUES ('" + recipe_instructions + "', '" +
