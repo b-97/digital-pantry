@@ -72,10 +72,10 @@ app.get('/add_ingredients_page', function(req, res) {
 app.get('/view_recipes_page', function(req, res) {
 	res.send(page_manager.renderViewRecipesPage());
 });
-app.get('/add_recipes_page', function(req, res) {
+app.get('/ingredients_quantity_page', function(req, res) {
 	res.send(page_manager.renderIngredientsQuantityPage());
 });
-app.get('/submit_ingredients_quantity', function(req, res) {
+app.get('/create_recipe_page', function(req, res) {
 	db.once('db_get_rows_success', function(msg) {
 		res.send(page_manager.renderCreateRecipePage(req.query.quantity, msg));
 	});
