@@ -121,11 +121,9 @@ app.get('/pantry_table', function(req, res) {
 app.get('/recipes_list', function(req, res) {
 	db.once('db_get_recipes_table_success', function(msg) {
 		res.send(msg);
-		console.log("successful request!");
 	});
 	db.once('db_get_recipes_table_error', function(msg) {
 		res.send(msg);
-		console.log("we borked :(");
 	});
 	db.get_recipes_table(req.query.user_name);
 });

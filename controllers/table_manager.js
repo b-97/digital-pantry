@@ -158,22 +158,7 @@ class db extends EventEmitter {
 	*/
 	get_recipes_table(username) {
 		var self = this;
-		var sql_query = "SELECT * FROM Ingredients WHERE recipe_id = '" +
-			12 + "';";
-		
-		var ingredient_names = [];
-		var measurement_units = [];
-		var quantities = [];
-			
-		con.query(sql_query, function(err, rows, fields) {
-			for (var i = 0; i < rows.length; i++) {
-				ingredient_names[i] = rows[i].ingredient_name;
-				measurement_units[i] = rows[i].measurement_unit;
-				quantities[i] = rows[i].quantity;
-			}
-		});
-		
-		sql_query = "SELECT * FROM Recipes WHERE user_name = '" + username +
+		var sql_query = "SELECT * FROM Recipes WHERE user_name = '" + username +
 			"';";
 		
 		con.query(sql_query, function(err, rows, fields) {
@@ -191,11 +176,15 @@ class db extends EventEmitter {
 					html += "<h2>" + rows[i].recipe_name + "</h2>";
 					html += "<h4>Ingredients</h4>";
 					html += "<ul>";
-					for (var j = 0; j < ingredient_names.length; j++) {
-						html += "<li>" + quantities[j] + " " +
-							measurement_units[j] + " " + ingredient_names[j]
-							+ "</li>";
-					}
+					var sql_query1 = "SELECT * FROM Ingredients WHERE recipe_id = '" +
+						rows[i].recipe_id + "';"
+					con.query(sql_query, function(err1, rows1, fields1) {
+						for (var j = 0; j < rows1.length; j++) {
+							html += "<li>" + rows1[j].quantity + " " +
+							rows1[j].measurement_unit + " " +
+							rows1[j].ingredient_name + "</li>";
+						}
+					});
 					html += "</ul>";
 					html += "<h4>Instructions</h4>";
 					html += "<p>" + rows[i].recipe_instructions + "</p>";
@@ -203,13 +192,29 @@ class db extends EventEmitter {
 					html += "</div>";
 				}
 				html += "</div>";
-				self.emit('db_get_recipes_table_success', html); //emit once done
+				self.emit('db_get_recipes_table_success', html);
 			}
 			else {
 				console.log('Error making SQL request for Recipes table');
 				self.emit('db_get_recipes_table_error', err);	//emit error
 			}
 		});
+		
+		
+		/*var sql_query = "SELECT * FROM Ingredients WHERE recipe_id = '" +
+			12 + "';";
+		
+		var ingredient_names = [];
+		var measurement_units = [];
+		var quantities = [];
+			
+		con.query(sql_query, function(err, rows, fields) {
+			for (var i = 0; i < rows.length; i++) {
+				ingredient_names[i] = rows[i].ingredient_name;
+				measurement_units[i] = rows[i].measurement_unit;
+				quantities[i] = rows[i].quantity;
+			}
+		});*/
 	}
 	/*
 		get_pantry_ingredient_count - returns the count of a single ingredient
