@@ -142,7 +142,7 @@ class db extends EventEmitter {
 					else {
 						html += "<div class='ui-block-b'>";
 					}
-					html += "<div class='ui-body ui-body-d'>";
+					html += "<div class='ui-body ui-body-a'>";
 					html += "<h2>" + rows[i].recipe_name + "</h2>";
 					html += "<h4>Ingredients</h4>";
 					html += "<ul>";
