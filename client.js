@@ -8,7 +8,7 @@ $(document).ready(function() {
 });
 
 function requestPageContent(URL, display_location, params) {
-	console.log("Requesting page content for " + URL + " to be displayed in " + display_location + " with params " + params);
+	console.log("Requesting page content for " + URL + " to be displayed in " + display_location + " with params " + JSON.stringify(params));
 	$.ajax({
 		type: "GET",
 		url: URL,
@@ -105,28 +105,6 @@ function createAccount() {
 		},
 		error: function(jgXHR, textStatus, errorThrown){
 			alert("Error creating account: " + textStatus + " " + errorThrown);
-		}
-	});
-}
-
-function submitIngredientsQuantity() {
-	var params = {
-		quantity: $("#ingredients_quantity").val(),
-		user_name: data_user_name
-	};
-	
-	$.ajax({
-		type: "POST",
-		url: "./submit_ingredients_quantity",
-		dataType: "text",
-		data: params,
-		
-		success: function(msg) {
-			document.getElementById("page-body").innerHTML = msg;
-			$("#page-body").trigger("create");
-		},
-		error: function(jgXHR, textStatus, errorThrown){
-			alert("Error submitting number of ingredients: " + textStatus + " " + errorThrown);
 		}
 	});
 }

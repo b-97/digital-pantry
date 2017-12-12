@@ -72,7 +72,7 @@ function renderIngredientsQuantityPage() {
 	var html = "";
 	html += "<h1>Create a Recipe from Ingredients in Pantry</h1>";
 	html += "<input type='text' id='ingredients_quantity' placeholder='Enter the number of ingredients this recipe will have'>";
-	html += "<button onclick='submitIngredientsQuantity()'>Submit</button>";
+	html += "<button onclick=\"requestPageContent('/submit_ingredients_quantity', 'page-body', {quantity: $('#ingredients_quantity').val(), user_name: data_user_name})\">Submit</button>";
 	return html;
 }
 
