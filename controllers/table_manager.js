@@ -189,12 +189,12 @@ class db extends EventEmitter {
 						html += "<h4>Instructions</h4>";
 						html += "<p>" + row.recipe_instructions + "</p>";
 						html += "</div>";
-						html += "</div>";
 						callback();
 					});
 				},
 				function(err) {
 					if (!err) {
+						html += "</div>";
 						html += "</div>";
 						self.emit('db_get_recipes_table_success', html);
 					}
