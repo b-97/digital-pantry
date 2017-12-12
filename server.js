@@ -75,7 +75,7 @@ app.get('/view_recipes_page', function(req, res) {
 app.get('/add_recipes_page', function(req, res) {
 	res.send(page_manager.renderIngredientsQuantityPage());
 });
-app.post('/submit_ingredients_quantity', function(req, res) {
+app.get('/submit_ingredients_quantity', function(req, res) {
 	db.once('db_get_rows_success', function(msg) {
 		res.send(page_manager.renderCreateRecipePage(req.body.quantity, msg));
 	});
