@@ -227,12 +227,12 @@ class db extends EventEmitter {
 	/*get_pantry_ingredient_count(username, ingredient_name){
 		var count = "";
 		var self = this;
-		/*	implementation needed -
-				request from mysql pantry table that returns
-					the count column of a row where
-					ingredient_name=ingredient_name and username=username.
-				format of the result into an integer.
-		*/
+		//	implementation needed -
+		//		request from mysql pantry table that returns
+		//			the count column of a row where
+		//			ingredient_name=ingredient_name and username=username.
+		//		format of the result into an integer.
+		
 		self.emit('pantry_ingredient_count', count);
 	}*/
 	/*
