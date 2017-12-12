@@ -36,8 +36,9 @@ class db extends EventEmitter {
 	*/
 	authenticate(username, password) {
 		var self = this;
-		//query to search the database
-		var sql_query = "SELECT first_name FROM Users WHERE user_name = '" + username + "' && password = '" + password + "';";
+		var sql_query = "SELECT first_name FROM Users WHERE user_name = '" +
+			username + "' && password = '" + password + "';";
+
 		con.query(sql_query, function(err, rows, field) {
 			if (err) {
 				self.emit('auth', false);
@@ -66,19 +67,21 @@ class db extends EventEmitter {
 	*/
 	get_rows(user_name, table) {
 		var self = this;
-		var sql_query = "SELECT * FROM " + table + " WHERE user_name = '" + user_name + "';";
+		var sql_query = "SELECT * FROM " + table + " WHERE user_name = '" +
+		user_name + "';";
+		
 		con.query(sql_query, function(err, rows, fields) {
 			if (!err) {
 				self.emit('db_get_rows_success', rows);
 			}
 			else {
-				console.log('Error making the following SQL request: ' + sql_request);
+				console.log('Error making the SQL request: ' + sql_request);
 				self.emit('db_get_rows_error', err);
 			}
 		});
 	}
 	/*
-		get_table - takes a key, key name and a table, and makes a request to the
+		get_table - takes a key, key name and table, and makes a request to the
 			mysql table asking for all rows where the username matches.
 			Returns an html-formatted table or div on success, 
 				an error message on failure.
@@ -92,12 +95,16 @@ class db extends EventEmitter {
 	*/
 	get_table(key_name, key, table) {
 		var self = this;
-		var sql_query = "SELECT * FROM " + table + " WHERE " + key_name + " = '" + key + "';";
+		var sql_query = "SELECT * FROM " + table + " WHERE " + key_name +
+			" = '" + key + "';";
+		
 		con.query(sql_query, function(err, rows, fields) {
 			if (!err) {
-				if (table == "Pantry") {	//render the Pantry table
+				//render the Pantry table
+				if (table == "Pantry") {
 					var html = "";
-					html += "<table data-role='table' id='display_table' data-mode='reflow' class='ui-responsive'>";
+					html += "<table data-role='table' id='display_table'" +
+						"data-mode='reflow' class='ui-responsive'>";
 					html += "<thead>";
 					html += "<tr>";
 					html += "<th>Ingredient Name</th>";
@@ -106,7 +113,7 @@ class db extends EventEmitter {
 					html += "</tr>";
 					html += "</thead>";
 					html += "<tbody>";
-					for (var i = 0; i < rows.length; i++) { //for each row
+					for (var i = 0; i < rows.length; i++) {
 						html += "<tr>";
 						html += "<td>" + rows[i].ingredient_name + "</td>";
 						html += "<td>" + rows[i].measurement_unit + "</td>";
@@ -116,7 +123,8 @@ class db extends EventEmitter {
 					html += "</tbody>";
 					html += "</table>";
 				}
-				else if (table == "Recipes") {	//render the Recipes table in a div
+				//render the Recipes table
+				else if (table == "Recipes") {
 					var html = "";
 					html += "<div class='ui-grid-a'>";
 					for (var i = 0; i < rows.length; i++) {
@@ -135,7 +143,7 @@ class db extends EventEmitter {
 					}
 					html += "</div>";
 				}
-				self.emit('db_get_response_success', html); //once we're done, emit
+				self.emit('db_get_response_success', html); //emit once done
 			}
 			else {
 				console.log('Error making SQL request: ' + sql_string);
@@ -178,8 +186,8 @@ class db extends EventEmitter {
 	modify_users_row(user_name, password, first_name, last_name){
 		var self = this;
 		var sql_query = "INSERT INTO Users (user_name, password, first_name, " +
-		"last_name) VALUES ('" + user_name + "', '" + password  + "', '" +
-		first_name + "', '" + last_name + "');";
+			"last_name) VALUES ('" + user_name + "', '" + password  + "', '" +
+			first_name + "', '" + last_name + "');";
 		
 		con.query(sql_query, function(err, rows, fields) {
 			if !(err) {
@@ -227,9 +235,9 @@ class db extends EventEmitter {
 		var self = this;
 		this.once('db_not_found', function(msg) {
 			var sql_query = "INSERT INTO Pantry (id, user_name, " +
-			"ingredient_name, measurement_unit, quantity) VALUES ('" + id +
-			"', '" + user_name + "', '" + ingredient_name + "', '" +
-			measurement_unit + "', " + quantity + ");";
+				"ingredient_name, measurement_unit, quantity) VALUES ('" + id +
+				"', '" + user_name + "', '" + ingredient_name + "', '" +
+				measurement_unit + "', " + quantity + ");";
 			
 			con.query(sql_query, function(err, rows, fields) {
 				if !(err) {
@@ -270,6 +278,7 @@ class db extends EventEmitter {
 		var sql_query = "INSERT INTO Recipe (recipe_instructions, recipe_id, " +
 			"recipe_name, user_name) VALUES ('" + recipe_instructions + "', '" +
 			recipe_id + "', '" + recipe_name + "', '" + user_name + "');";
+		
 		con.query(sql_query, function(err, rows, fields){
 			if !(err) {
 				self.emit('db_recipe_add_success', "Success");
@@ -283,6 +292,7 @@ class db extends EventEmitter {
 	row_count(table_name) {
 		var self = this;
 		var sql_query = "SELECT * FROM " + table_name + ";";
+		
 		con.query(sql_query, function(err, rows, fields) {
 			if !(err) {
 				console.log("Row count: " + rows.length);
@@ -305,7 +315,8 @@ class db extends EventEmitter {
 	increment_pantry(user_name, ingredient_name, quantity) {
 		var self = this;
 		var sql_query = "UPDATE Pantry SET quantity = quantity + " + quantity +
-		" WHERE user_name = '" + user_name + "';";
+			" WHERE user_name = '" + user_name + "';";
+		
 		con.query(sql_query, function(err, rows, fields) {
 			if !(err) {
 				self.emit('db_pantry_increment_success', "Jolly good!");

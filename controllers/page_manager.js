@@ -43,7 +43,7 @@ function renderViewIngredientsPage() {
 	html += "<h1>List of Ingredients in Pantry</h1>";
 	html += "<button onclick=\"requestPageContent('/pantry_table', 'display', {user_name: data_user_name})\">Display Ingredients</button>";
 	html += "<div id='display'>";
-	html += "<!-- To be populated by requestTable -->";
+	html += "<!-- To be populated by requestPageContent -->";
 	html += "</div>";
 	return html;
 }
@@ -62,7 +62,7 @@ function renderViewRecipesPage() {
 	html += "<h1>List of Recipes in Pantry</h1>";
 	html += "<button onclick=\"requestPageContent('/recipes_list', 'display', {user_name: data_user_name})\">Display Recipes</button>";
 	html += "<div id='display'>";
-	html += "<!-- To be populated by requestTable -->";
+	html += "<!-- To be populated by requestPageContent -->";
 	html += "</div>";
 	return html;
 }
