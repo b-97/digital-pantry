@@ -97,8 +97,7 @@ class db extends EventEmitter {
 		var self = this;
 		
 		var sql_query = "SELECT ingredient_name FROM " +
-			"Ingredients WHERE recipe_id == '" +
-			12 + "';";
+			"Ingredients WHERE recipe_id = '12';";
 		
 		var ingredient_names = [];
 			
