@@ -77,12 +77,12 @@ app.get('/add_recipes_page', function(req, res) {
 });
 app.get('/submit_ingredients_quantity', function(req, res) {
 	db.once('db_get_rows_success', function(msg) {
-		res.send(page_manager.renderCreateRecipePage(req.body.quantity, msg));
+		res.send(page_manager.renderCreateRecipePage(req.query.quantity, msg));
 	});
 	db.once('db_get_rows_error', function(msg) {
 		res.send(msg);
 	});
-	db.get_rows(req.body.user_name, 'Pantry');
+	db.get_rows(req.query.user_name, 'Pantry');
 });
 
 /*	/panel_logged_in and /panel_logged_out send the data for the panel.
