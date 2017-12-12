@@ -103,7 +103,7 @@ class db extends EventEmitter {
 			
 		con.query(sql_query, function(err, rows, fields) {
 			for (var i = 0; i < rows.length; i++) {
-				ingredient_names[i] = rows[j].ingredient_name;
+				ingredient_names[i] = rows[i].ingredient_name;
 				console.log("Ingredient " + i + ": " + ingredient_names[i]);
 			}
 		});
