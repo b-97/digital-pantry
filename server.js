@@ -84,6 +84,15 @@ app.get('/create_recipe_page', function(req, res) {
 	});
 	db.get_rows(req.query.user_name, 'Pantry');
 });
+app.get('/get_pantry_rows', function(req, res) {
+	db.once('db_get_rows_success', function(msg) {
+		res.send(msg);
+	});
+	db.once('db_get_rows_error', function(msg) {
+		res.send(msg);
+	});
+	db.get_rows(req.query.user_name, 'Pantry');
+});
 
 /*	/panel_logged_in and /panel_logged_out send the data for the panel.
 */
