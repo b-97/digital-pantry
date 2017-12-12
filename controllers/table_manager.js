@@ -174,11 +174,11 @@ class db extends EventEmitter {
 					//	html += "<div class='ui-block-b'>";
 					//}
 					html += "<div class='ui-body ui-body-a'>";
-					html += "<h2>" + rows[i].recipe_name + "</h2>";
+					html += "<h2>" + row.recipe_name + "</h2>";
 					html += "<h4>Ingredients</h4>";
 					html += "<ul>";
 					var sql_query1 = "SELECT * FROM Ingredients WHERE recipe_id = '" +
-						rows[i].recipe_id + "';"
+						row.recipe_id + "';"
 					con.query(sql_query, function(err1, rows1, fields1) {
 						for (var j = 0; j < rows1.length; j++) {
 							html += "<li>" + rows1[j].quantity + " " +
@@ -188,7 +188,7 @@ class db extends EventEmitter {
 					});
 					html += "</ul>";
 					html += "<h4>Instructions</h4>";
-					html += "<p>" + rows[i].recipe_instructions + "</p>";
+					html += "<p>" + row.recipe_instructions + "</p>";
 					html += "</div>";
 					html += "</div>";
 				});
